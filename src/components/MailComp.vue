@@ -73,53 +73,67 @@ const checkMailSource = async () => {
     errorMessages.value = [];
     statusResults.value.fill('');
 
+
+
     if (MailSource !== "") {
-        if (selectedChecks.value[0]) {
-            const titleCheck = checkPageTitle(MailSource);
-            errorMessages.value.push(titleCheck ? titleCheck : '');
-            statusResults.value[0] = titleCheck ? 'NG' : 'OK';
-        }
-        if (selectedChecks.value[1]) {
-            const preheaderCheck = checkMailPreheader(MailSource);
-            errorMessages.value.push(preheaderCheck ? preheaderCheck : '');
-            statusResults.value[1] = preheaderCheck ? 'NG' : 'OK';
-        }
-        if (selectedChecks.value[2]) {
-            const applicationNoCheck = checkMailApplicationNo(MailSource);
-            errorMessages.value.push(applicationNoCheck ? applicationNoCheck : '');
-            statusResults.value[2] = applicationNoCheck ? 'NG' : 'OK';
-        }
-        if (selectedChecks.value[3]) {
-            const imageCheck = await checkImageLinks(MailSource);
-            errorMessages.value.push(...imageCheck);
-            statusResults.value[3] = imageCheck.length ? 'NG' : 'OK';
-        }
-        if (selectedChecks.value[4]) {
-            const utmCheck = checkUTMCampaign(MailSource);
-            errorMessages.value.push(utmCheck ? utmCheck : '');
-            statusResults.value[4] = utmCheck ? 'NG' : 'OK';
-        }
-        if (selectedChecks.value[5]) {
-            const specialTextCheck = checkForSpecialText(MailSource);
-            errorMessages.value.push(specialTextCheck ? specialTextCheck : '');
-            statusResults.value[5] = specialTextCheck ? 'NG' : 'OK';
-        }
-        if (selectedChecks.value[6]) {
-            const openTagCheck = checkNoIndexOpenTag(MailSource);
-            errorMessages.value.push(openTagCheck ? openTagCheck : '');
-            statusResults.value[6] = openTagCheck ? 'NG' : 'OK';
-        }
-        if (selectedChecks.value[7]) {
-            const footerCheck = checkFooter(MailSource);
-            errorMessages.value.push(footerCheck ? footerCheck : '');
-            statusResults.value[7] = footerCheck ? 'NG' : 'OK';
+        const runAllChecks = async () => {
+            if (selectedChecks.value[0]) {
+                const titleCheck = checkPageTitle(MailSource);
+                errorMessages.value.push(titleCheck ? titleCheck : '');
+                statusResults.value[0] = titleCheck ? 'NG' : 'OK';
+            }
+            if (selectedChecks.value[1]) {
+                const preheaderCheck = checkMailPreheader(MailSource);
+                errorMessages.value.push(preheaderCheck ? preheaderCheck : '');
+                statusResults.value[1] = preheaderCheck ? 'NG' : 'OK';
+            }
+            if (selectedChecks.value[2]) {
+                const applicationNoCheck = checkMailApplicationNo(MailSource);
+                errorMessages.value.push(applicationNoCheck ? applicationNoCheck : '');
+                statusResults.value[2] = applicationNoCheck ? 'NG' : 'OK';
+            }
+            if (selectedChecks.value[3]) {
+                const imageCheck = await checkImageLinks(MailSource);
+                errorMessages.value.push(...imageCheck);
+                statusResults.value[3] = imageCheck.length ? 'NG' : 'OK';
+            }
+            if (selectedChecks.value[4]) {
+                const utmCheck = checkUTMCampaign(MailSource);
+                errorMessages.value.push(utmCheck ? utmCheck : '');
+                statusResults.value[4] = utmCheck ? 'NG' : 'OK';
+            }
+            if (selectedChecks.value[5]) {
+                const specialTextCheck = checkForSpecialText(MailSource);
+                errorMessages.value.push(specialTextCheck ? specialTextCheck : '');
+                statusResults.value[5] = specialTextCheck ? 'NG' : 'OK';
+            }
+            if (selectedChecks.value[6]) {
+                const openTagCheck = checkNoIndexOpenTag(MailSource);
+                errorMessages.value.push(openTagCheck ? openTagCheck : '');
+                statusResults.value[6] = openTagCheck ? 'NG' : 'OK';
+            }
+            if (selectedChecks.value[7]) {
+                const footerCheck = checkFooter(MailSource);
+                errorMessages.value.push(footerCheck ? footerCheck : '');
+                statusResults.value[7] = footerCheck ? 'NG' : 'OK';
+            }
+
+            console.log(MailSource);
+            console.log("結果:", statusResults.value);
+            console.log("エラーメッセージ:", errorMessages.value);
         }
 
-        console.log(MailSource);
-        console.log("結果:", statusResults.value);
-        console.log("エラーメッセージ:", errorMessages.value);
 
-        await captureChecklist();
+
+        await runAllChecks()
+
+        const isSuccess = statusResults.value.every(value => value == "OK")
+        if (isSuccess) {
+            await captureChecklist();
+        }
+
+
+
 
 
     } else {
