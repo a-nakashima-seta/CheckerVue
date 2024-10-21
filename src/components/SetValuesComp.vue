@@ -30,10 +30,10 @@ const handleEdit = (field: 'prod_cd' | 'title' | 'preheader') => {
 
 <template>
     <div>
-        <div class="setArea">
+        <form class="setArea">
             <textarea v-model="inputValue" placeholder="申込番号, タイトル, プリヘッダーを3行で入力"></textarea>
             <button class="setButton" @click="handleSetValues">セットする</button>
-        </div>
+        </form>
 
         <div class="displayArea">
             <div class="editArea">

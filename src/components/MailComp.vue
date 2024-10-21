@@ -7,10 +7,10 @@ import {
     checkMailApplicationNo,
     checkImageLinks,
     checkUTMCampaign,
-    checkForSpecialText,
-    checkNoIndexOpenTag,
-    checkFooter,
-} from "../utils/mailCheckFunc";
+    checkMailCPNLinkText,
+    checkMailOpenTag,
+    checkMailFooter,
+} from "../utils/CheckFunc";
 
 const MailCheckList = [
     "タイトルは正しいか",
@@ -23,7 +23,7 @@ const MailCheckList = [
     "フッターが変数化されているか"
 ];
 
-let MailSource = "";
+let MailSource: string = "";
 const selectedChecks = ref(new Array(MailCheckList.length).fill(true));
 const errorMessages = ref<string[]>([]);
 const statusResults = ref<string[]>(new Array(MailCheckList.length).fill(''));
@@ -103,17 +103,17 @@ const checkMailSource = async () => {
                 statusResults.value[4] = utmCheck ? 'NG' : 'OK';
             }
             if (selectedChecks.value[5]) {
-                const specialTextCheck = checkForSpecialText(MailSource);
+                const specialTextCheck = checkMailCPNLinkText(MailSource);
                 errorMessages.value.push(specialTextCheck ? specialTextCheck : '');
                 statusResults.value[5] = specialTextCheck ? 'NG' : 'OK';
             }
             if (selectedChecks.value[6]) {
-                const openTagCheck = checkNoIndexOpenTag(MailSource);
+                const openTagCheck = checkMailOpenTag(MailSource);
                 errorMessages.value.push(openTagCheck ? openTagCheck : '');
                 statusResults.value[6] = openTagCheck ? 'NG' : 'OK';
             }
             if (selectedChecks.value[7]) {
-                const footerCheck = checkFooter(MailSource);
+                const footerCheck = checkMailFooter(MailSource);
                 errorMessages.value.push(footerCheck ? footerCheck : '');
                 statusResults.value[7] = footerCheck ? 'NG' : 'OK';
             }
