@@ -1,10 +1,4 @@
-// IDをエスケープする関数
-// function escapeId(id: string) {
-//     return id
-//         .toLowerCase()
-//         .replace(/[^a-z0-9_-]/g, '')
-//         .substring(0, 50);
-// }
+import { DependentTexts } from "./DependentTexts";
 
 // ページタイトルの確認
 function checkPageTitle(pageSource: string) {
@@ -153,7 +147,7 @@ function checkMailOpenTag(pageSource: string) {
     const bodyTagPattern = /<!--[\s\S]*?<\/body>|<body[^>]*>/i;
 
     const bodyTagMatch = pageSource.match(bodyTagPattern);
-    if (bodyTagMatch) {
+    if (bodyTagMatch && typeof bodyTagMatch.index === 'number') {
         const bodyTagIndex = bodyTagMatch.index + bodyTagMatch[0].length;
         const bodyContentAfterTag = pageSource.substring(bodyTagIndex);
 
@@ -166,6 +160,7 @@ function checkMailOpenTag(pageSource: string) {
 
     return null;
 }
+
 
 // Web用の開封タグの確認
 function checkWebOpenTag(pageSource: string) {
@@ -265,6 +260,22 @@ function checkFavicon(pageSource: string, isSEAC: boolean) {
     return null;
 }
 
+const checkDependentText = (pageSource: string) => {
+    const dependentSet = new Set(DependentTexts);
+    const foundDependentChars: string[] = [];
+
+    for (const char of pageSource) {
+        if (!dependentSet.has(char)) {
+            foundDependentChars.push(char);
+        }
+    }
+
+    if (foundDependentChars.length > 0) {
+        return `機種依存文字:${foundDependentChars}が存在します。`;
+    }
+};
+
+
 export {
     checkPageTitle,
     checkMailPreheader,
@@ -281,5 +292,6 @@ export {
     checkMailFooter,
     checkWebFooter,
     checkGTM,
-    checkFavicon
+    checkFavicon,
+    checkDependentText
 };

@@ -243,6 +243,7 @@ const checkWebSource = async () => {
 .getWebSourceArea {
     display: block;
     margin: 0 auto;
+    font-size: 16px;
     height: 20px;
     max-width: 420px;
     width: 100%;

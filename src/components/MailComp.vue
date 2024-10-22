@@ -10,6 +10,7 @@ import {
     checkMailCPNLinkText,
     checkMailOpenTag,
     checkMailFooter,
+    checkDependentText
 } from "../utils/CheckFunc";
 
 const MailCheckList = [
@@ -20,7 +21,8 @@ const MailCheckList = [
     "$$$utm_campaign$$$がないか",
     "※画像がうまく表示されない方はこちらがあるか",
     "開封タグはあるか",
-    "フッターが変数化されているか"
+    "フッターが変数化されているか",
+    "機種依存文字はないか"
 ];
 
 let MailSource: string = "";
@@ -117,13 +119,16 @@ const checkMailSource = async () => {
                 errorMessages.value.push(footerCheck ? footerCheck : '');
                 statusResults.value[7] = footerCheck ? 'NG' : 'OK';
             }
+            if (selectedChecks.value[8]) {
+                const dependentTextCheck = checkDependentText(MailSource);
+                errorMessages.value.push(dependentTextCheck ? dependentTextCheck : '');
+                statusResults.value[8] = dependentTextCheck ? 'NG' : 'OK';
+            }
 
             console.log(MailSource);
             console.log("結果:", statusResults.value);
             console.log("エラーメッセージ:", errorMessages.value);
         }
-
-
 
         await runAllChecks()
 
@@ -131,10 +136,6 @@ const checkMailSource = async () => {
         if (isSuccess) {
             await captureChecklist();
         }
-
-
-
-
 
     } else {
         alert("ファイルが選択されていません。");
