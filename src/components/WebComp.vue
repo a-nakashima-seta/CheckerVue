@@ -35,6 +35,8 @@ const selectedChecks = ref(new Array(WebCheckList.length).fill(true));
 const errorMessages = ref<string[]>([]);
 const statusResults = ref<string[]>(new Array(WebCheckList.length).fill(''));
 const checklistRef = ref<HTMLElement | null>(null);
+const url = ref<string>('');
+const checkTypeWeb = ref<string>("normal")
 
 const selectAll = () => {
     selectedChecks.value.fill(true);
@@ -44,16 +46,43 @@ const clearSelections = () => {
     selectedChecks.value.fill(false);
 };
 
-const getWebSource = async (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    if (target.files) {
-        const file = target.files[0];
-        try {
-            const text = await file.text();
-            WebSource = text;
-        } catch (error) {
-            console.error("ファイルの読み込みエラー:", error);
+const getWebSource = async () => {
+    if (!url.value) {
+        alert('URLが入力されていません。');
+        return;
+    }
+
+    try {
+        const username = "Setagaya"
+        const password = "setagaya1234"
+        const encodedString = btoa(`${username}:${password}`);
+        const encodedAuth = `Basic ${encodedString}`;
+
+        const response = await fetch('http://www2.shizensyokuhin.jp/tool/html-checker/getSource.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": encodedAuth,
+            },
+            body: JSON.stringify({ url: url.value })
+        });
+
+        if (!response.ok) {
+            throw new Error('ネットワークエラー: ' + response.status);
         }
+
+        const res = await response.json();
+
+        if (res.html) {
+            WebSource = res.html
+        }
+
+        return true
+    } catch (error) {
+        alert('ページソースの取得に失敗しました');
+        console.error('ページソースの取得に失敗しました:', error);
+
+        return false
     }
 };
 
@@ -81,6 +110,7 @@ const checkWebSource = async () => {
     statusResults.value.fill('');
 
 
+    await getWebSource()
 
     if (WebSource !== "") {
         const runAllChecks = async () => {
@@ -134,32 +164,27 @@ const checkWebSource = async () => {
                 errorMessages.value.push(GTMCheck ? GTMCheck : '');
                 statusResults.value[9] = GTMCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[9]) {
-                const faviconCheck = checkFavicon(WebSource);
+            if (selectedChecks.value[10]) {
+                const faviconCheck = checkFavicon(WebSource, checkTypeWeb.value === "seac");
                 errorMessages.value.push(faviconCheck ? faviconCheck : '');
-                statusResults.value[9] = faviconCheck ? 'NG' : 'OK';
+                statusResults.value[10] = faviconCheck ? 'NG' : 'OK';
             }
 
-            console.log(WebSource);
-            console.log("結果:", statusResults.value);
-            console.log("エラーメッセージ:", errorMessages.value);
         }
 
+        console.log(WebSource);
+        console.log("結果:", statusResults.value);
+        console.log("エラーメッセージ:", errorMessages.value);
 
 
         await runAllChecks()
 
         const isSuccess = statusResults.value.every(value => value == "OK")
         if (isSuccess) {
+            alert("チェックOKです!")
             await captureChecklist();
         }
 
-
-
-
-
-    } else {
-        alert("ファイルが選択されていません。");
     }
 
 };
@@ -168,13 +193,14 @@ const checkWebSource = async () => {
 <template>
     <div style="width: 100%; max-width: 800px; margin: 0 auto;">
         <h2>Web用チェックリスト</h2>
-        <input class="getWebSourceArea" type="text" placeholder="チェック対象のurlを入力してください。">
+        <input class="getWebSourceArea" type="text" placeholder="チェック対象のurlを入力してください。" v-model="url">
 
-        <div class="">
-            <input type="radio">
-            <label for="">通常</label>
-            <input type="radio">
-            <label for="">SEAC</label>
+        <div>
+            <input type="radio" id="normal" name="checkType" value="normal" v-model="checkTypeWeb">
+            <label for="normal">通常</label>
+
+            <input type="radio" id="seac" name="checkType" value="seac" v-model="checkTypeWeb">
+            <label for="seac">SEAC</label>
         </div>
 
         <div class="wrapper">
@@ -184,6 +210,7 @@ const checkWebSource = async () => {
             </div>
 
             <ul class="checkList" ref="checklistRef">
+                <h3 class="checkTypeName">Web</h3>
                 <li v-for="(item, index) in WebCheckList" :key="index">
                     <input type="checkbox" :id="item" v-model="selectedChecks[index]">
                     <label :for="item">{{ item }}</label>
@@ -228,12 +255,19 @@ const checkWebSource = async () => {
     gap: 2%;
 }
 
+.checkTypeName {
+    color: #213547;
+    margin: 0;
+    text-align: center;
+}
+
 .checkList {
     background-color: #FFFFFF;
     border-radius: .5em;
     padding: 1em;
     text-align: left;
     margin: 0.4em 0;
+    font-size: 18px;
 }
 
 .checkList span {

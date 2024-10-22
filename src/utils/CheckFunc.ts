@@ -241,9 +241,7 @@ function checkGTM(pageSource: string) {
 }
 
 // ファビコンのチェック
-function checkFavicon(pageSource: string) {
-    const isSEAC = document.getElementById('seacOption').checked;
-
+function checkFavicon(pageSource: string, isSEAC: boolean) {
     // 通常のファビコンのパターン
     const faviconPattern = isSEAC
         ? /<link\s+rel=["']shortcut icon["']\s+href=["']\/excludes\/dmlite\/seac\/img\/common\/favicon\.ico["']\s*\/?>/i

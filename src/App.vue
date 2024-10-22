@@ -11,8 +11,8 @@ import WebComp from './components/WebComp.vue';
     <h1>HTML Checker</h1>
     <SetValuesComp />
     <div style="display: flex; gap: 2%;">
-      <MailComp />
       <WebComp />
+      <MailComp />
     </div>
   </div>
 </template>

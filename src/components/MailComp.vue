@@ -156,6 +156,7 @@ const checkMailSource = async () => {
             </div>
 
             <ul class="checkList" ref="checklistRef">
+                <h3 class="checkTypeName">Mail</h3>
                 <li v-for="(item, index) in MailCheckList" :key="index">
                     <input type="checkbox" :id="item" v-model="selectedChecks[index]">
                     <label :for="item">{{ item }}</label>
@@ -191,12 +192,19 @@ const checkMailSource = async () => {
     gap: 2%;
 }
 
+.checkTypeName {
+    color: #213547;
+    margin: 0;
+    text-align: center;
+}
+
 .checkList {
     background-color: #FFFFFF;
     border-radius: .5em;
     padding: 1em;
     text-align: left;
     margin: 0.4em 0;
+    font-size: 18px;
 }
 
 .checkList span {
