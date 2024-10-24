@@ -7,7 +7,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        entryFileNames: `assets/bundle.js`,
+        entryFileNames: `assets/index.js`,
         assetFileNames: `assets/[name].[ext]`
       }
     }
