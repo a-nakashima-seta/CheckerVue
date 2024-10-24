@@ -59,6 +59,7 @@ const captureChecklist = async () => {
             if (blob) {
                 const item = new ClipboardItem({ 'image/png': blob });
                 await navigator.clipboard.write([item]).then(() => {
+                    alert('チェックOKです!');
                     alert('チェックリストをクリップボードにコピーしました!');
                 });
             }
@@ -148,7 +149,9 @@ const checkMailSource = async () => {
     <div style="width: 100%; max-width: 800px; margin: 0 auto;">
         <h2>Mail用チェックリスト</h2>
 
-        <input type="file" @change="getMailSource">
+        <div class="fileUploader">
+            <input id="uploader" type="file" @change="getMailSource">
+        </div>
 
         <div class="wrapper">
             <div class="selectButtonWrapper">
@@ -183,93 +186,35 @@ const checkMailSource = async () => {
 </template>
 
 <style scoped>
-.wrapper {
-    margin: 1em 0;
+.fileUploader {
+    width: 100%;
 }
 
-.selectButtonWrapper {
-    display: flex;
-    justify-content: flex-end;
-    gap: 2%;
-}
-
-.checkTypeName {
-    color: #213547;
-    margin: 0;
-    text-align: center;
-}
-
-.checkList {
+.fileUploader input {
     background-color: #FFFFFF;
-    border-radius: .5em;
-    padding: 1em;
-    text-align: left;
-    margin: 0.4em 0;
-    font-size: 18px;
+    padding: 5em 8em 3em;
+    border: solid 2px #00DC82;
+    border-radius: 5px;
+    position: relative;
 }
 
-.checkList span {
-    margin-left: 10px;
-    font-weight: bold;
-}
-
-.selectButton,
-.checkButton {
-    background-color: #FFFBE6;
-    transition: all .3s ease;
-}
-
-.selectButton:hover,
-.checkButton:hover {
-    background-color: #FCCD2A;
-}
-
-.selectButton {
-    display: block;
-    font-size: 14px;
-}
-
-.checkButton {
-    margin: 1em auto 0;
-    background-color: #C0EBA6;
-}
-
-.checkButton:hover {
-    background-color: #347928;
+.fileUploader input::file-selector-button {
     color: #FFFFFF;
-}
-
-.errListWrapper {
-    background-color: #FFFFFF;
-    width: 100%;
-    margin-top: 3em;
-    padding-bottom: .5em;
-    border-radius: .5em;
-}
-
-.errListWrapper h2 {
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    background-color: #00DC82;
     margin: 0;
-    padding: 1em 0 0;
-    color: #f15f5f;
+    margin-right: 5px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
-.errList {
-    list-style: none;
-    width: 95%;
-    padding: 0;
-    margin: 0 auto;
-}
-
-.errListItem {
-    width: 100%;
-    list-style: none;
-}
-
-.errListItem p {
-    width: 100%;
-    display: block;
-    list-style: none;
-    text-align: left;
-    word-break: break-all;
+.fileUploader input::before {
+    content: "ファイルを選択またはドラッグアンドドロップして下さい。";
+    position: absolute;
+    top: 2.5em;
+    right: 3em;
 }
 </style>

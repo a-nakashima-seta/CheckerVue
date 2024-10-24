@@ -271,7 +271,7 @@ const checkDependentText = (pageSource: string) => {
     }
 
     if (foundDependentChars.length > 0) {
-        return `機種依存文字:${foundDependentChars}が存在します。`;
+        return `機種依存文字： ${foundDependentChars} が存在します。`;
     }
 };
 

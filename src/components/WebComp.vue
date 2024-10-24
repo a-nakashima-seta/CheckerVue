@@ -93,6 +93,7 @@ const captureChecklist = async () => {
             if (blob) {
                 const item = new ClipboardItem({ 'image/png': blob });
                 await navigator.clipboard.write([item]).then(() => {
+                    alert('チェックOKです!');
                     alert('チェックリストをクリップボードにコピーしました!');
                 });
             }
@@ -181,7 +182,6 @@ const checkWebSource = async () => {
 
         const isSuccess = statusResults.value.every(value => value == "OK")
         if (isSuccess) {
-            alert("チェックOKです!")
             await captureChecklist();
         }
 
@@ -236,103 +236,24 @@ const checkWebSource = async () => {
 </template>
 
 <style scoped>
-.wrapper {
-    margin: 1em 0;
-}
-
 .getWebSourceArea {
     display: block;
+    box-sizing: border-box;
     margin: 0 auto;
     font-size: 16px;
     height: 20px;
     max-width: 420px;
     width: 100%;
     margin-bottom: 1em;
+    border: none;
+    height: 30px;
+    border: solid 1px #213547;
+    border-radius: 5px;
 }
 
-.selectButtonWrapper {
-    display: flex;
-    justify-content: flex-end;
-    gap: 2%;
-}
-
-.checkTypeName {
-    color: #213547;
-    margin: 0;
-    text-align: center;
-}
-
-.checkList {
-    background-color: #FFFFFF;
-    border-radius: .5em;
-    padding: 1em;
-    text-align: left;
-    margin: 0.4em 0;
-    font-size: 18px;
-}
-
-.checkList span {
-    margin-left: 10px;
-    font-weight: bold;
-}
-
-.selectButton,
-.checkButton {
-    background-color: #FFFBE6;
-    transition: all .3s ease;
-}
-
-.selectButton:hover,
-.checkButton:hover {
-    background-color: #FCCD2A;
-}
-
-.selectButton {
-    display: block;
-    font-size: 14px;
-}
-
-.checkButton {
-    margin: 1em auto 0;
-    background-color: #C0EBA6;
-}
-
-.checkButton:hover {
-    background-color: #347928;
-    color: #FFFFFF;
-}
-
-.errListWrapper {
-    background-color: #FFFFFF;
-    width: 100%;
-    margin-top: 3em;
-    padding-bottom: .5em;
-    border-radius: .5em;
-}
-
-.errListWrapper h2 {
-    margin: 0;
-    padding: 1em 0 0;
-    color: #f15f5f;
-}
-
-.errList {
-    list-style: none;
-    width: 95%;
-    padding: 0;
-    margin: 0 auto;
-}
-
-.errListItem {
-    width: 100%;
-    list-style: none;
-}
-
-.errListItem p {
-    width: 100%;
-    display: block;
-    list-style: none;
-    text-align: left;
-    word-break: break-all;
+.getWebSourceArea:focus-visible {
+    box-sizing: border-box;
+    border: solid 2px #00DC82;
+    outline: none;
 }
 </style>
