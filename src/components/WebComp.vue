@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import html2canvas from 'html2canvas';
+
 import {
     checkPageTitle,
     checkWebPreheader,
@@ -86,20 +86,22 @@ const getWebSource = async () => {
     }
 };
 
-const captureChecklist = async () => {
-    if (checklistRef.value) {
-        const canvas = await html2canvas(checklistRef.value);
-        canvas.toBlob(async (blob) => {
-            if (blob) {
-                const item = new ClipboardItem({ 'image/png': blob });
-                await navigator.clipboard.write([item]).then(() => {
-                    alert('チェックOKです!');
-                    alert('チェックリストをクリップボードにコピーしました!');
-                });
-            }
-        });
-    }
-};
+
+// キャプチャは手動で保存する運用のためいったんコメントアウト
+// const captureChecklist = async () => {
+//     if (checklistRef.value) {
+//         const canvas = await html2canvas(checklistRef.value);
+//         canvas.toBlob(async (blob) => {
+//             if (blob) {
+//                 const item = new ClipboardItem({ 'image/png': blob });
+//                 await navigator.clipboard.write([item]).then(() => {
+//                     alert('チェックOKです!');
+//                     alert('チェックリストをクリップボードにコピーしました!');
+//                 });
+//             }
+//         });
+//     }
+// };
 
 const checkWebSource = async () => {
     if (selectedChecks.value.every((checked) => !checked)) {
@@ -180,9 +182,13 @@ const checkWebSource = async () => {
 
         await runAllChecks()
 
-        const isSuccess = statusResults.value.every(value => value == "OK")
+        const isSuccess = statusResults.value.every(value => value == "OK");
         if (isSuccess) {
-            await captureChecklist();
+            alert("チェックOKです！")
+            // キャプチャは手動で保存する運用のためいったんコメントアウト
+            // await captureChecklist();
+        }else{
+            alert("エラー項目を確認して下さい。")
         }
 
     }

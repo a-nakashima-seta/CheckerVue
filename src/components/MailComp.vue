@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import html2canvas from 'html2canvas';
+
 import {
     checkPageTitle,
     checkMailPreheader,
@@ -29,7 +29,7 @@ let MailSource: string = "";
 const selectedChecks = ref(new Array(MailCheckList.length).fill(true));
 const errorMessages = ref<string[]>([]);
 const statusResults = ref<string[]>(new Array(MailCheckList.length).fill(''));
-const checklistRef = ref<HTMLElement | null>(null);
+const checklistRef = ref<HTMLElement>(null!);
 
 const selectAll = () => {
     selectedChecks.value.fill(true);
@@ -52,20 +52,22 @@ const getMailSource = async (event: Event) => {
     }
 };
 
-const captureChecklist = async () => {
-    if (checklistRef.value) {
-        const canvas = await html2canvas(checklistRef.value);
-        canvas.toBlob(async (blob) => {
-            if (blob) {
-                const item = new ClipboardItem({ 'image/png': blob });
-                await navigator.clipboard.write([item]).then(() => {
-                    alert('チェックOKです!');
-                    alert('チェックリストをクリップボードにコピーしました!');
-                });
-            }
-        });
-    }
-};
+// キャプチャは手動で保存する運用のためいったんコメントアウト
+// const captureChecklist = async () => {
+//     if (checklistRef.value) {
+//         const canvas = await html2canvas(checklistRef.value);
+//         canvas.toBlob(async (blob) => {
+//             if (blob) {
+//                 const item = new ClipboardItem({ 'image/png': blob });
+//                 await navigator.clipboard.write([item]).then(() => {
+//                     alert('チェックOKです!');
+//                     alert('チェックリストをクリップボードにコピーしました!');
+//                 });
+//             }
+//         });
+//     }
+// };
+
 
 const checkMailSource = async () => {
     if (selectedChecks.value.every((checked) => !checked)) {
@@ -135,7 +137,12 @@ const checkMailSource = async () => {
 
         const isSuccess = statusResults.value.every(value => value == "OK")
         if (isSuccess) {
-            await captureChecklist();
+
+            alert("チェックOKです！")
+            // キャプチャは手動で保存する運用のためいったんコメントアウト
+            // await captureChecklist();
+        } else {
+            alert("エラー項目を確認して下さい。")
         }
 
     } else {
