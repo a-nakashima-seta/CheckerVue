@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { CheckItem } from "../types/types";
 
 import {
     checkPageTitle,
@@ -15,23 +16,22 @@ import {
     checkFavicon
 } from "../utils/CheckFunc";
 
-const WebCheckList = [
-    "タイトルは正しいか",
-    "プリヘッダーはないか",
-    "冒頭に変数はないか",
-    "画像のリンク切れはないか",
-    "$$$utm_campaign$$$がないか",
-    "※画像がうまく表示されない方はこちらがないか",
-    "開封タグはないか",
-    "noindexの記述はあるか",
-    "フッターが変数化されていないか",
-    "GTM用の記述があるか",
-    "faviconは設定されているか",
-
+const WebCheckList: CheckItem[] = [
+    { id: "web1", label: "タイトルは正しいか" },
+    { id: "web2", label: "プリヘッダーはないか" },
+    { id: "web3", label: "冒頭に変数はないか" },
+    { id: "web4", label: "画像のリンク切れはないか" },
+    { id: "web5", label: "$$$utm_campaign$$$がないか" },
+    { id: "web6", label: "※画像がうまく表示されない方はこちらがないか" },
+    { id: "web7", label: "開封タグはないか" },
+    { id: "web8", label: "noindexの記述はあるか" },
+    { id: "web9", label: "フッターが変数化されていないか" },
+    { id: "web10", label: "GTM用の記述があるか" },
+    { id: "web11", label: "faviconは設定されているか" }
 ];
 
 let WebSource: string = "";
-const selectedChecks = ref(new Array(WebCheckList.length).fill(true));
+const selectedChecksWeb = ref(new Array(WebCheckList.length).fill(true));
 const errorMessages = ref<string[]>([]);
 const statusResults = ref<string[]>(new Array(WebCheckList.length).fill(''));
 const checklistRef = ref<HTMLElement | null>(null);
@@ -39,11 +39,11 @@ const url = ref<string>('');
 const checkTypeWeb = ref<string>("normal")
 
 const selectAll = () => {
-    selectedChecks.value.fill(true);
+    selectedChecksWeb.value.fill(true);
 }
 
 const clearSelections = () => {
-    selectedChecks.value.fill(false);
+    selectedChecksWeb.value.fill(false);
 };
 
 const getWebSource = async () => {
@@ -104,7 +104,7 @@ const getWebSource = async () => {
 // };
 
 const checkWebSource = async () => {
-    if (selectedChecks.value.every((checked) => !checked)) {
+    if (selectedChecksWeb.value.every((checked) => !checked)) {
         alert("チェック項目を選択してください");
         return;
     }
@@ -117,57 +117,57 @@ const checkWebSource = async () => {
 
     if (WebSource !== "") {
         const runAllChecks = async () => {
-            if (selectedChecks.value[0]) {
+            if (selectedChecksWeb.value[0]) {
                 const titleCheck = checkPageTitle(WebSource);
                 errorMessages.value.push(titleCheck ? titleCheck : '');
                 statusResults.value[0] = titleCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[1]) {
+            if (selectedChecksWeb.value[1]) {
                 const preheaderCheck = checkWebPreheader(WebSource);
                 errorMessages.value.push(preheaderCheck ? preheaderCheck : '');
                 statusResults.value[1] = preheaderCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[2]) {
+            if (selectedChecksWeb.value[2]) {
                 const applicationNoCheck = checkWebApplicationNo(WebSource);
                 errorMessages.value.push(applicationNoCheck ? applicationNoCheck : '');
                 statusResults.value[2] = applicationNoCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[3]) {
+            if (selectedChecksWeb.value[3]) {
                 const imageCheck = await checkImageLinks(WebSource);
                 errorMessages.value.push(...imageCheck);
                 statusResults.value[3] = imageCheck.length ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[4]) {
+            if (selectedChecksWeb.value[4]) {
                 const utmCheck = checkUTMCampaign(WebSource);
                 errorMessages.value.push(utmCheck ? utmCheck : '');
                 statusResults.value[4] = utmCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[5]) {
+            if (selectedChecksWeb.value[5]) {
                 const specialTextCheck = checkWebCPNLinkText(WebSource);
                 errorMessages.value.push(specialTextCheck ? specialTextCheck : '');
                 statusResults.value[5] = specialTextCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[6]) {
+            if (selectedChecksWeb.value[6]) {
                 const openTagCheck = checkWebOpenTag(WebSource);
                 errorMessages.value.push(openTagCheck ? openTagCheck : '');
                 statusResults.value[6] = openTagCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[7]) {
+            if (selectedChecksWeb.value[7]) {
                 const noindexCheck = checkNoIndexMetaTag(WebSource);
                 errorMessages.value.push(noindexCheck ? noindexCheck : '');
                 statusResults.value[7] = noindexCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[8]) {
+            if (selectedChecksWeb.value[8]) {
                 const footerCheck = checkWebFooter(WebSource);
                 errorMessages.value.push(footerCheck ? footerCheck : '');
                 statusResults.value[8] = footerCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[9]) {
+            if (selectedChecksWeb.value[9]) {
                 const GTMCheck = checkGTM(WebSource);
                 errorMessages.value.push(GTMCheck ? GTMCheck : '');
                 statusResults.value[9] = GTMCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[10]) {
+            if (selectedChecksWeb.value[10]) {
                 const faviconCheck = checkFavicon(WebSource, checkTypeWeb.value === "seac");
                 errorMessages.value.push(faviconCheck ? faviconCheck : '');
                 statusResults.value[10] = faviconCheck ? 'NG' : 'OK';
@@ -187,7 +187,7 @@ const checkWebSource = async () => {
             alert("チェックOKです！")
             // キャプチャは手動で保存する運用のためいったんコメントアウト
             // await captureChecklist();
-        }else{
+        } else {
             alert("エラー項目を確認して下さい。")
         }
 
@@ -217,9 +217,9 @@ const checkWebSource = async () => {
 
             <ul class="checkList" ref="checklistRef">
                 <h3 class="checkTypeName">Web</h3>
-                <li v-for="(item, index) in WebCheckList" :key="index">
-                    <input type="checkbox" :id="item" v-model="selectedChecks[index]">
-                    <label :for="item">{{ item }}</label>
+                <li v-for="(item, index) in WebCheckList" :key="item.id">
+                    <input type="checkbox" :id="item.id" v-model="selectedChecksWeb[index]">
+                    <label :for="item.id">{{ item.label }}</label>
                     <span :style="{ color: statusResults[index] === 'NG' ? '#f15f5f' : '#3FB27F' }">{{ statusResults[index] }}</span>
                 </li>
             </ul>

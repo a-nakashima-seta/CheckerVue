@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { CheckItem } from "../types/types";
 
 import {
     checkPageTitle,
@@ -13,30 +14,30 @@ import {
     checkDependentText
 } from "../utils/CheckFunc";
 
-const MailCheckList = [
-    "タイトルは正しいか",
-    "プリヘッダーは正しいか",
-    "冒頭に変数があり、正しい申込番号が入っているか",
-    "画像のリンク切れはないか",
-    "$$$utm_campaign$$$がないか",
-    "※画像がうまく表示されない方はこちらがあるか",
-    "開封タグはあるか",
-    "フッターが変数化されているか",
-    "機種依存文字はないか"
+const MailCheckList: CheckItem[] = [
+    { id: "mail1", label: "タイトルは正しいか" },
+    { id: "mail2", label: "プリヘッダーは正しいか" },
+    { id: "mail3", label: "冒頭に変数があり、正しい申込番号が入っているか" },
+    { id: "mail4", label: "画像のリンク切れはないか" },
+    { id: "mail5", label: "$$$utm_campaign$$$がないか" },
+    { id: "mail6", label: "※画像がうまく表示されない方はこちらがあるか" },
+    { id: "mail7", label: "開封タグはあるか" },
+    { id: "mail8", label: "フッターが変数化されているか" },
+    { id: "mail9", label: "機種依存文字はないか" }
 ];
 
 let MailSource: string = "";
-const selectedChecks = ref(new Array(MailCheckList.length).fill(true));
+const selectedChecksMail = ref(new Array(MailCheckList.length).fill(true));
 const errorMessages = ref<string[]>([]);
 const statusResults = ref<string[]>(new Array(MailCheckList.length).fill(''));
 const checklistRef = ref<HTMLElement>(null!);
 
 const selectAll = () => {
-    selectedChecks.value.fill(true);
+    selectedChecksMail.value.fill(true);
 }
 
 const clearSelections = () => {
-    selectedChecks.value.fill(false);
+    selectedChecksMail.value.fill(false);
 };
 
 const getMailSource = async (event: Event) => {
@@ -70,7 +71,7 @@ const getMailSource = async (event: Event) => {
 
 
 const checkMailSource = async () => {
-    if (selectedChecks.value.every((checked) => !checked)) {
+    if (selectedChecksMail.value.every((checked) => !checked)) {
         alert("チェック項目を選択してください");
         return;
     }
@@ -82,47 +83,47 @@ const checkMailSource = async () => {
 
     if (MailSource !== "") {
         const runAllChecks = async () => {
-            if (selectedChecks.value[0]) {
+            if (selectedChecksMail.value[0]) {
                 const titleCheck = checkPageTitle(MailSource);
                 errorMessages.value.push(titleCheck ? titleCheck : '');
                 statusResults.value[0] = titleCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[1]) {
+            if (selectedChecksMail.value[1]) {
                 const preheaderCheck = checkMailPreheader(MailSource);
                 errorMessages.value.push(preheaderCheck ? preheaderCheck : '');
                 statusResults.value[1] = preheaderCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[2]) {
+            if (selectedChecksMail.value[2]) {
                 const applicationNoCheck = checkMailApplicationNo(MailSource);
                 errorMessages.value.push(applicationNoCheck ? applicationNoCheck : '');
                 statusResults.value[2] = applicationNoCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[3]) {
+            if (selectedChecksMail.value[3]) {
                 const imageCheck = await checkImageLinks(MailSource);
                 errorMessages.value.push(...imageCheck);
                 statusResults.value[3] = imageCheck.length ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[4]) {
+            if (selectedChecksMail.value[4]) {
                 const utmCheck = checkUTMCampaign(MailSource);
                 errorMessages.value.push(utmCheck ? utmCheck : '');
                 statusResults.value[4] = utmCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[5]) {
+            if (selectedChecksMail.value[5]) {
                 const specialTextCheck = checkMailCPNLinkText(MailSource);
                 errorMessages.value.push(specialTextCheck ? specialTextCheck : '');
                 statusResults.value[5] = specialTextCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[6]) {
+            if (selectedChecksMail.value[6]) {
                 const openTagCheck = checkMailOpenTag(MailSource);
                 errorMessages.value.push(openTagCheck ? openTagCheck : '');
                 statusResults.value[6] = openTagCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[7]) {
+            if (selectedChecksMail.value[7]) {
                 const footerCheck = checkMailFooter(MailSource);
                 errorMessages.value.push(footerCheck ? footerCheck : '');
                 statusResults.value[7] = footerCheck ? 'NG' : 'OK';
             }
-            if (selectedChecks.value[8]) {
+            if (selectedChecksMail.value[8]) {
                 const dependentTextCheck = checkDependentText(MailSource);
                 errorMessages.value.push(dependentTextCheck ? dependentTextCheck : '');
                 statusResults.value[8] = dependentTextCheck ? 'NG' : 'OK';
@@ -168,9 +169,9 @@ const checkMailSource = async () => {
 
             <ul class="checkList" ref="checklistRef">
                 <h3 class="checkTypeName">Mail</h3>
-                <li v-for="(item, index) in MailCheckList" :key="index">
-                    <input type="checkbox" :id="item" v-model="selectedChecks[index]">
-                    <label :for="item">{{ item }}</label>
+                <li v-for="(item, index) in MailCheckList" :key="item.id">
+                    <input type="checkbox" :id="item.id" v-model="selectedChecksMail[index]">
+                    <label :for="item.id">{{ item.label }}</label>
                     <span :style="{ color: statusResults[index] === 'NG' ? '#f15f5f' : '#3FB27F' }">{{ statusResults[index] }}</span>
                 </li>
             </ul>
