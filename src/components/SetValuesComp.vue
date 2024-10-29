@@ -14,11 +14,11 @@ const handleSetValues = () => {
         store.saveValues();
         inputValue.value = "";
     } else {
-        alert("3行で申込番号、タイトル、プリヘッダーを入力してください。");
+        alert("3行でタイトル、プリヘッダー、申込番号を入力してください。");
     }
 };
 
-const handleEdit = (field: 'prod_cd' | 'title' | 'preheader') => {
+const handleEdit = (field: 'title' | 'preheader' | 'prod_cd') => {
     const currentValue = store[field];
     const newValue = prompt(`${field}を編集:`, currentValue);
     if (newValue !== null) {
@@ -31,18 +31,11 @@ const handleEdit = (field: 'prod_cd' | 'title' | 'preheader') => {
 <template>
     <div>
         <form class="setArea">
-            <textarea v-model="inputValue" placeholder="申込番号, タイトル, プリヘッダーを3行で入力"></textarea>
+            <textarea v-model="inputValue" placeholder="タイトル, プリヘッダー, 申込番号を3行で入力"></textarea>
             <button class="setButton" @click="handleSetValues">セットする</button>
         </form>
 
         <div class="displayArea">
-            <div class="editArea">
-                <h4>申込番号:</h4>
-                <p class="editAreaWrap">
-                    <span>{{ store.prod_cd }}</span>
-                    <button class="editButton" @click="handleEdit('prod_cd')">編集</button>
-                </p>
-            </div>
             <div class="editArea">
                 <h4>タイトル:</h4>
                 <p class="editAreaWrap">
@@ -55,6 +48,13 @@ const handleEdit = (field: 'prod_cd' | 'title' | 'preheader') => {
                 <p class="editAreaWrap">
                     <span>{{ store.preheader }}</span>
                     <button class="editButton" @click="handleEdit('preheader')">編集</button>
+                </p>
+            </div>
+            <div class="editArea">
+                <h4>申込番号:</h4>
+                <p class="editAreaWrap">
+                    <span>{{ store.prod_cd }}</span>
+                    <button class="editButton" @click="handleEdit('prod_cd')">編集</button>
                 </p>
             </div>
         </div>
