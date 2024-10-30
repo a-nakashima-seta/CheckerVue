@@ -8,9 +8,9 @@ const inputValue = ref<string>("");
 const handleSetValues = () => {
     const lines = inputValue.value.split('\n');
     if (lines.length === 3) {
-        store.prod_cd = lines[0].trim();
-        store.title = lines[1].trim();
-        store.preheader = lines[2].trim();
+        store.title = lines[0].trim();
+        store.preheader = lines[1].trim();
+        store.prod_cd = lines[2].trim();
         store.saveValues();
         inputValue.value = "";
     } else {
