@@ -124,7 +124,7 @@ const handleEdit = (field: 'title' | 'preheader' | 'prod_cd') => {
     background-color: #fffbe6;
     transition: all .3s ease;
     max-width: 70px;
-    width: 7%;
+    width: 30%;
 }
 
 .editButton:hover {
