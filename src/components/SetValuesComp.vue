@@ -111,16 +111,20 @@ const handleEdit = (field: 'title' | 'preheader' | 'prod_cd') => {
     border-bottom: solid 1px #ddd;
     padding-bottom: .3em;
     margin: 0;
+    gap: 1%;
 }
 
 .editAreaWrap span {
     font-size: 20px;
+    text-align: left;
 }
 
 .editButton {
     font-size: 14px;
-    background-color: #FFFBE6;
+    background-color: #fffbe6;
     transition: all .3s ease;
+    max-width: 70px;
+    width: 7%;
 }
 
 .editButton:hover {
