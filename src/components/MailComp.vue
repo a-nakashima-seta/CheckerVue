@@ -136,7 +136,8 @@ const checkMailSource = async () => {
 
         await runAllChecks()
 
-        const isSuccess = statusResults.value.every(value => value == "OK")
+        const isSuccess = errorMessages.value.every(value => value == "")
+
         if (isSuccess) {
 
             alert("チェックOKです！")
