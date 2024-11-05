@@ -182,7 +182,7 @@ const checkWebSource = async () => {
 
         await runAllChecks()
 
-        const isSuccess = statusResults.value.every(value => value == "OK");
+        const isSuccess = errorMessages.value.every(value => value == "");
         if (isSuccess) {
             alert("チェックOKです！")
             // キャプチャは手動で保存する運用のためいったんコメントアウト
