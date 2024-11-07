@@ -17,15 +17,15 @@ import {
 // import { color } from 'html2canvas/dist/types/css/types/color';
 
 const MailCheckList = ref<CheckItem[]>([
-    { id: "mail1", label: "タイトルは正しいか" },
-    { id: "mail2", label: "プリヘッダーは正しいか" },
-    { id: "mail3", label: "冒頭に変数があり、正しい申込番号が入っているか" },
-    { id: "mail4", label: "画像のリンク切れはないか" },
-    { id: "mail5", label: "$$$utm_campaign$$$がないか" },
-    { id: "mail6", label: "※画像がうまく表示されない方はこちらがあるか" },
-    { id: "mail7", label: "開封タグはあるか" },
-    { id: "mail8", label: "フッターが変数化されているか" },
-    { id: "mail9", label: "機種依存文字はないか" }
+    { id: "mail1", label: "タイトルは正しいか", checkFn: checkPageTitle },
+    { id: "mail2", label: "プリヘッダーは正しいか", checkFn: checkMailPreheader },
+    { id: "mail3", label: "冒頭に変数があり、正しい申込番号が入っているか", checkFn: checkMailApplicationNo },
+    { id: "mail4", label: "画像のリンク切れはないか", checkFn: checkImageLinks },
+    { id: "mail5", label: "$$$utm_campaign$$$がないか", checkFn: checkUTMCampaign },
+    { id: "mail6", label: "※画像がうまく表示されない方はこちらがあるか", checkFn: checkMailCPNLinkText },
+    { id: "mail7", label: "開封タグはあるか", checkFn: checkMailOpenTag },
+    { id: "mail8", label: "フッターが変数化されているか", checkFn: checkMailFooter },
+    { id: "mail9", label: "機種依存文字はないか", checkFn: checkDependentText }
 ]);
 
 let MailSource: string = "";
@@ -57,16 +57,16 @@ watch(checkFlg, (newFlg) => {
     } else {
         const mail6Index = MailCheckList.value.findIndex(item => item.id === "mail6");
         if (mail6Index === -1) {
-            MailCheckList.value.splice(5, 0, { id: "mail6", label: "※画像がうまく表示されない方はこちらがあるか" });
+            MailCheckList.value.splice(5, 0, { id: "mail6", label: "※画像がうまく表示されない方はこちらがあるか", checkFn: checkMailCPNLinkText });
         }
     }
 
     // "biyori"のときはmail10,mail11,mail12を追加
     if (newFlg === "biyori") {
         MailCheckList.value.push(
-            { id: "mail10", label: "新着コンテンツエリア内のボタンテキストは適切か" },
-            { id: "mail11", label: "新着コンテンツエリア内のボタン遷移先URLの末尾パラメータは適切か" },
-            { id: "mail12", label: "\"&amp;\"を\"&\"に置換できているか" }
+            { id: "mail10", label: "新着コンテンツエリア内のボタンテキストは適切か", checkFn: checkMailCPNLinkText },
+            { id: "mail11", label: "新着コンテンツエリア内のボタン遷移先URLの末尾パラメータは適切か", checkFn: checkMailCPNLinkText },
+            { id: "mail12", label: "\"&amp;\"を\"&\"に置換できているか", checkFn: checkAmpText }
         );
     } else {
         // "biyori" 以外のときは mail10, mail11, mail12 を削除
@@ -126,88 +126,52 @@ const checkMailSource = async () => {
         return;
     }
 
-
-
-
     if (MailSource !== "") {
         errorMessages.value = [];
-        statusResults.value.fill('');
+        statusResults.value.fill(''); // ステータスをリセット
 
         const runAllChecks = async () => {
-            if (selectedChecksMail.value[0]) {
-                const titleCheck = checkPageTitle(MailSource);
-                errorMessages.value.push(titleCheck ? titleCheck : '');
-                statusResults.value[0] = titleCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksMail.value[1]) {
-                const preheaderCheck = checkMailPreheader(MailSource);
-                errorMessages.value.push(preheaderCheck ? preheaderCheck : '');
-                statusResults.value[1] = preheaderCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksMail.value[2]) {
-                const applicationNoCheck = checkMailApplicationNo(MailSource);
-                errorMessages.value.push(applicationNoCheck ? applicationNoCheck : '');
-                statusResults.value[2] = applicationNoCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksMail.value[3]) {
-                const imageCheck = await checkImageLinks(MailSource);
-                errorMessages.value.push(...imageCheck);
-                statusResults.value[3] = imageCheck.length ? 'NG' : 'OK';
-            }
-            if (selectedChecksMail.value[4]) {
-                const utmCheck = checkUTMCampaign(MailSource);
-                errorMessages.value.push(utmCheck ? utmCheck : '');
-                statusResults.value[4] = utmCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksMail.value[5]) {
-                const specialTextCheck = checkMailCPNLinkText(MailSource);
-                errorMessages.value.push(specialTextCheck ? specialTextCheck : '');
-                statusResults.value[5] = specialTextCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksMail.value[6]) {
-                const openTagCheck = checkMailOpenTag(MailSource);
-                errorMessages.value.push(openTagCheck ? openTagCheck : '');
-                statusResults.value[6] = openTagCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksMail.value[7]) {
-                const footerCheck = checkMailFooter(MailSource);
-                errorMessages.value.push(footerCheck ? footerCheck : '');
-                statusResults.value[7] = footerCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksMail.value[8]) {
-                const dependentTextCheck = checkDependentText(MailSource);
-                errorMessages.value.push(dependentTextCheck ? dependentTextCheck : '');
-                statusResults.value[8] = dependentTextCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksMail.value[9]) {
-                const AmpTextCheck = checkAmpText(MailSource);
-                errorMessages.value.push(AmpTextCheck ? AmpTextCheck : '');
-                statusResults.value[9] = AmpTextCheck ? 'NG' : 'OK';
-            }
+            for (let i = 0; i < MailCheckList.value.length; i++) {
+                if (selectedChecksMail.value[i]) {
+                    const { checkFn } = MailCheckList.value[i];
+                    const result = await checkFn(MailSource);
 
-            console.log(MailSource);
-            console.log("結果:", statusResults.value);
-            console.log("エラーメッセージ:", errorMessages.value);
-        }
+                    // `result` が string[] の場合、個別にエラーメッセージを追加
+                    if (Array.isArray(result)) {
+                        result.forEach((message) => {
+                            if (message) {
+                                errorMessages.value.push(message);
+                            }
+                        });
+                    } else {
+                        // `result` が string または null の場合、そのまま処理
+                        if (result) {
+                            errorMessages.value.push(result);
+                        }
+                    }
 
-        await runAllChecks()
+                    statusResults.value[i] = result ? 'NG' : 'OK'; // ステータスを設定
+                }
+            }
+        };
 
-        const isSuccess: boolean = errorMessages.value.every(value => value == "")
+        await runAllChecks();
+
+        const isSuccess: boolean = errorMessages.value.every(value => value == "");
 
         if (isSuccess) {
-
-            alert("チェックOKです！")
+            alert("チェックOKです！");
             // キャプチャは手動で保存する運用のためいったんコメントアウト
             // await captureChecklist();
         } else {
-            alert("エラー項目を確認して下さい。")
+            alert("エラー項目を確認して下さい。");
         }
 
     } else {
         alert("ファイルが選択されていません。");
     }
-
 };
+
 </script>
 
 <template>
@@ -241,19 +205,15 @@ const checkMailSource = async () => {
             </ul>
             <button class="checkButton" @click="checkMailSource">チェック実行</button>
 
-
             <div class="errListWrapper" v-if="errorMessages.length && errorMessages.some(msg => msg.trim() !== '')">
                 <h2>エラーリスト</h2>
                 <ul class="errList">
                     <li class="errListItem" v-for="(message, index) in errorMessages" :key="index">
-                        <p>
-                            {{ message }}
-                        </p>
+                        <p>{{ message }}</p>
                     </li>
                 </ul>
             </div>
         </div>
-
     </div>
 </template>
 
