@@ -199,14 +199,14 @@ const checkWebSource = async () => {
 <template>
     <div style="width: 100%; max-width: 800px; margin: 0 auto;">
         <h2>Web用チェックリスト</h2>
-        <input class="getWebSourceArea" type="text" placeholder="チェック対象のurlを入力してください。" v-model="url">
-
-        <div>
-            <input type="radio" id="normal" name="checkType" value="normal" v-model="checkTypeWeb">
-            <label for="normal">通常</label>
-
-            <input type="radio" id="seac" name="checkType" value="seac" v-model="checkTypeWeb">
-            <label for="seac">SEAC</label>
+        <div class="webInputArea">
+            <div class="webCheckType">
+                <input type="radio" id="normal" name="checkType" value="normal" v-model="checkTypeWeb">
+                <label for="normal">通常</label>
+                <input type="radio" id="seac" name="checkType" value="seac" v-model="checkTypeWeb">
+                <label for="seac">SEAC</label>
+            </div>
+            <input class="getWebSourceArea" type="text" placeholder="チェック対象のurlを入力してください。" v-model="url">
         </div>
 
         <div class="wrapper">
@@ -261,5 +261,18 @@ const checkWebSource = async () => {
     box-sizing: border-box;
     border: solid 2px #00DC82;
     outline: none;
+}
+
+.webInputArea {
+    margin-top: 55px;
+    margin-bottom: 67px;
+}
+
+.webCheckType {
+    max-width: 420px;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 auto;
+    margin-bottom: .5em;
 }
 </style>

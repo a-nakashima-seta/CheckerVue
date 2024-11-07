@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed, ComputedRef, watch } from 'vue';
 import { CheckItem } from "../types/types";
 
 import {
@@ -11,10 +11,12 @@ import {
     checkMailCPNLinkText,
     checkMailOpenTag,
     checkMailFooter,
-    checkDependentText
+    checkDependentText,
+    checkAmpText
 } from "../utils/CheckFunc";
+// import { color } from 'html2canvas/dist/types/css/types/color';
 
-const MailCheckList: CheckItem[] = [
+const MailCheckList = ref<CheckItem[]>([
     { id: "mail1", label: "タイトルは正しいか" },
     { id: "mail2", label: "プリヘッダーは正しいか" },
     { id: "mail3", label: "冒頭に変数があり、正しい申込番号が入っているか" },
@@ -24,13 +26,61 @@ const MailCheckList: CheckItem[] = [
     { id: "mail7", label: "開封タグはあるか" },
     { id: "mail8", label: "フッターが変数化されているか" },
     { id: "mail9", label: "機種依存文字はないか" }
-];
+]);
 
 let MailSource: string = "";
-const selectedChecksMail = ref(new Array(MailCheckList.length).fill(true));
+const selectedChecksMail = ref(new Array(MailCheckList.value.length).fill(true));
 const errorMessages = ref<string[]>([]);
-const statusResults = ref<string[]>(new Array(MailCheckList.length).fill(''));
+const statusResults = ref<string[]>(new Array(MailCheckList.value.length).fill(''));
 const checklistRef = ref<HTMLElement>(null!);
+const TypeMail = ref<string[]>([])
+
+// 日和とイチオシのオプションを監視
+const checkFlg: ComputedRef<string | undefined> = computed(
+    (): string | undefined => {
+        if (TypeMail.value.includes("biyori")) {
+            return "biyori"
+        } else if (TypeMail.value.includes("ichioshi")) {
+            return "ichioshi"
+        }
+
+    })
+
+
+// 日和とイチオシのオプションを監視し分岐に応じてリストの表示を変更
+watch(checkFlg, (newFlg) => {
+    if (newFlg === "ichioshi") {
+        const mail6Index = MailCheckList.value.findIndex(item => item.id === "mail6");
+        if (mail6Index !== -1) {
+            MailCheckList.value.splice(mail6Index, 1);
+        }
+    } else {
+        const mail6Index = MailCheckList.value.findIndex(item => item.id === "mail6");
+        if (mail6Index === -1) {
+            MailCheckList.value.splice(5, 0, { id: "mail6", label: "※画像がうまく表示されない方はこちらがあるか" });
+        }
+    }
+
+    // "biyori"のときはmail10,mail11,mail12を追加
+    if (newFlg === "biyori") {
+        MailCheckList.value.push(
+            { id: "mail10", label: "新着コンテンツエリア内のボタンテキストは適切か" },
+            { id: "mail11", label: "新着コンテンツエリア内のボタン遷移先URLの末尾パラメータは適切か" },
+            { id: "mail12", label: "\"&amp;\"を\"&\"に置換できているか" }
+        );
+    } else {
+        // "biyori" 以外のときは mail10, mail11, mail12 を削除
+        const idsToRemove = ["mail10", "mail11", "mail12"];
+        idsToRemove.forEach(id => {
+            const index = MailCheckList.value.findIndex(item => item.id === id);
+            if (index !== -1) {
+                MailCheckList.value.splice(index, 1);
+            }
+        });
+    }
+    // 選択状態を更新
+    selectedChecksMail.value = new Array(MailCheckList.value.length).fill(true);
+});
 
 const selectAll = () => {
     selectedChecksMail.value.fill(true);
@@ -76,12 +126,13 @@ const checkMailSource = async () => {
         return;
     }
 
-    errorMessages.value = [];
-    statusResults.value.fill('');
 
 
 
     if (MailSource !== "") {
+        errorMessages.value = [];
+        statusResults.value.fill('');
+
         const runAllChecks = async () => {
             if (selectedChecksMail.value[0]) {
                 const titleCheck = checkPageTitle(MailSource);
@@ -128,6 +179,11 @@ const checkMailSource = async () => {
                 errorMessages.value.push(dependentTextCheck ? dependentTextCheck : '');
                 statusResults.value[8] = dependentTextCheck ? 'NG' : 'OK';
             }
+            if (selectedChecksMail.value[9]) {
+                const AmpTextCheck = checkAmpText(MailSource);
+                errorMessages.value.push(AmpTextCheck ? AmpTextCheck : '');
+                statusResults.value[9] = AmpTextCheck ? 'NG' : 'OK';
+            }
 
             console.log(MailSource);
             console.log("結果:", statusResults.value);
@@ -136,7 +192,7 @@ const checkMailSource = async () => {
 
         await runAllChecks()
 
-        const isSuccess = errorMessages.value.every(value => value == "")
+        const isSuccess: boolean = errorMessages.value.every(value => value == "")
 
         if (isSuccess) {
 
@@ -157,6 +213,13 @@ const checkMailSource = async () => {
 <template>
     <div style="width: 100%; max-width: 800px; margin: 0 auto;">
         <h2>Mail用チェックリスト</h2>
+
+        <div class="MailCheckType">
+            <input type="checkbox" id="biyori" name="checkType" value="biyori" v-model="TypeMail" :disabled="checkFlg == 'ichioshi'">
+            <label for="biyori">日和</label>
+            <input type="checkbox" id="ichioshi" name="checkType" value="ichioshi" v-model="TypeMail" :disabled="checkFlg == 'biyori'">
+            <label for="ichioshi">イチオシ</label>
+        </div>
 
         <div class="fileUploader">
             <input id="uploader" type="file" @change="getMailSource">
@@ -205,6 +268,7 @@ const checkMailSource = async () => {
     border: solid 2px #00DC82;
     border-radius: 5px;
     position: relative;
+    cursor: pointer;
 }
 
 .fileUploader input::file-selector-button {
@@ -225,5 +289,17 @@ const checkMailSource = async () => {
     position: absolute;
     top: 2.5em;
     right: 3em;
+}
+
+.MailCheckType {
+    display: flex;
+    justify-content: flex-end;
+    max-width: 460px;
+    margin: 0 auto;
+    margin-bottom: .5em;
+}
+
+.MailCheckType label {
+    user-select: none;
 }
 </style>

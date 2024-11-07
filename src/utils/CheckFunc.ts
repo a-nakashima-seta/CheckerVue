@@ -260,6 +260,7 @@ function checkFavicon(pageSource: string, isSEAC: boolean) {
     return null;
 }
 
+// 機種依存文字のチェック
 const checkDependentText = (pageSource: string) => {
     const dependentSet = new Set(DependentTexts);
     const foundDependentChars: string[] = [];
@@ -274,6 +275,17 @@ const checkDependentText = (pageSource: string) => {
         return `機種依存文字： ${foundDependentChars} が存在します。`;
     }
 };
+
+
+// 日和用のチェック
+const checkAmpText = (pageSource: string) => {
+    const ampTextPattern = /&amp;/i;
+    if (ampTextPattern.test(pageSource)) {
+        return '"&amp;"を"&"に変換してください。';
+    }
+}
+
+
 
 
 export {
@@ -293,5 +305,6 @@ export {
     checkWebFooter,
     checkGTM,
     checkFavicon,
-    checkDependentText
+    checkDependentText,
+    checkAmpText
 };
