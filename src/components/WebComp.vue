@@ -15,6 +15,7 @@ import {
     checkGTM,
     checkFavicon
 } from "../utils/CheckFunc";
+import WebModeToggle from './WebModeToggle.vue';
 
 const WebCheckList: CheckItem[] = [
     { id: "web1", label: "タイトルは正しいか" },
@@ -200,12 +201,15 @@ const checkWebSource = async () => {
     <div style="width: 100%; max-width: 800px; margin: 0 auto;">
         <h2>Web用チェックリスト</h2>
         <div class="webInputArea">
-            <div class="webCheckType">
+            <!-- <div class="webCheckType">
                 <input type="radio" id="normal" name="checkType" value="normal" v-model="checkTypeWeb">
                 <label for="normal">通常</label>
                 <input type="radio" id="seac" name="checkType" value="seac" v-model="checkTypeWeb">
                 <label for="seac">SEAC</label>
-            </div>
+            </div> -->
+
+            <WebModeToggle />
+
             <input class="getWebSourceArea" type="text" placeholder="チェック対象のurlを入力してください。" v-model="url">
         </div>
 

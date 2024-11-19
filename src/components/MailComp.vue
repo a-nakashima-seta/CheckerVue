@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, ComputedRef, watch } from 'vue';
 import { CheckItem } from "../types/types";
+import MailModeToggle from './MailModeToggle.vue';
 
 import {
     checkPageTitle,
@@ -178,12 +179,14 @@ const checkMailSource = async () => {
     <div style="width: 100%; max-width: 800px; margin: 0 auto;">
         <h2>Mail用チェックリスト</h2>
 
-        <div class="MailCheckType">
+        <!-- <div class="MailCheckType">
             <input type="checkbox" id="biyori" name="checkType" value="biyori" v-model="TypeMail" :disabled="checkFlg == 'ichioshi'">
             <label for="biyori">日和</label>
             <input type="checkbox" id="ichioshi" name="checkType" value="ichioshi" v-model="TypeMail" :disabled="checkFlg == 'biyori'">
             <label for="ichioshi">イチオシ</label>
-        </div>
+        </div> -->
+
+        <MailModeToggle />
 
         <div class="fileUploader">
             <input id="uploader" type="file" @change="getMailSource">
