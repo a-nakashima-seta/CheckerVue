@@ -15,6 +15,7 @@ import {
     checkDependentText,
     checkAmpText
 } from "../utils/CheckFunc";
+
 // import { color } from 'html2canvas/dist/types/css/types/color';
 
 const MailCheckList = ref<CheckItem[]>([
@@ -26,7 +27,7 @@ const MailCheckList = ref<CheckItem[]>([
     { id: "mail6", label: "※画像がうまく表示されない方はこちらがあるか", checkFn: checkMailCPNLinkText },
     { id: "mail7", label: "開封タグはあるか", checkFn: checkMailOpenTag },
     { id: "mail8", label: "フッターが変数化されているか", checkFn: checkMailFooter },
-    { id: "mail9", label: "機種依存文字はないか", checkFn: checkDependentText }
+    { id: "mail9", label: "機種依存文字はないか", checkFn: checkDependentText },
 ]);
 
 let MailSource: string = "";
@@ -34,23 +35,24 @@ const selectedChecksMail = ref(new Array(MailCheckList.value.length).fill(true))
 const errorMessages = ref<string[]>([]);
 const statusResults = ref<string[]>(new Array(MailCheckList.value.length).fill(''));
 const checklistRef = ref<HTMLElement>(null!);
-const TypeMail = ref<string[]>([])
+const TypeMail = ref<string>("通常")
 
 // 日和とイチオシのオプションを監視
 const checkFlg: ComputedRef<string | undefined> = computed(
     (): string | undefined => {
-        if (TypeMail.value.includes("biyori")) {
-            return "biyori"
-        } else if (TypeMail.value.includes("ichioshi")) {
-            return "ichioshi"
+        if (TypeMail.value.includes("日和")) {
+            return "日和"
+        } else if (TypeMail.value.includes("通常")) {
+            return "通常"
+        } else if (TypeMail.value.includes("イチオシ")) {
+            return "イチオシ"
         }
-
     })
 
 
 // 日和とイチオシのオプションを監視し分岐に応じてリストの表示を変更
 watch(checkFlg, (newFlg) => {
-    if (newFlg === "ichioshi") {
+    if (newFlg === "イチオシ") {
         const mail6Index = MailCheckList.value.findIndex(item => item.id === "mail6");
         if (mail6Index !== -1) {
             MailCheckList.value.splice(mail6Index, 1);
@@ -63,7 +65,7 @@ watch(checkFlg, (newFlg) => {
     }
 
     // "biyori"のときはmail10,mail11,mail12を追加
-    if (newFlg === "biyori") {
+    if (newFlg === "日和") {
         MailCheckList.value.push(
             { id: "mail10", label: "新着コンテンツエリア内のボタンテキストは適切か", checkFn: checkMailCPNLinkText },
             { id: "mail11", label: "新着コンテンツエリア内のボタン遷移先URLの末尾パラメータは適切か", checkFn: checkMailCPNLinkText },
@@ -128,8 +130,8 @@ const checkMailSource = async () => {
     }
 
     if (MailSource !== "") {
+        statusResults.value.fill('');
         errorMessages.value = [];
-        statusResults.value.fill(''); // ステータスをリセット
 
         const runAllChecks = async () => {
             for (let i = 0; i < MailCheckList.value.length; i++) {
@@ -137,7 +139,6 @@ const checkMailSource = async () => {
                     const { checkFn } = MailCheckList.value[i];
                     const result = await checkFn(MailSource);
 
-                    // `result` が string[] の場合、個別にエラーメッセージを追加
                     if (Array.isArray(result)) {
                         result.forEach((message) => {
                             if (message) {
@@ -145,16 +146,17 @@ const checkMailSource = async () => {
                             }
                         });
                     } else {
-                        // `result` が string または null の場合、そのまま処理
                         if (result) {
                             errorMessages.value.push(result);
                         }
                     }
 
-                    statusResults.value[i] = result ? 'NG' : 'OK'; // ステータスを設定
+                    statusResults.value[i] = result && result.length > 0 ? 'NG' : 'OK';
                 }
             }
         };
+
+
 
         await runAllChecks();
 
@@ -162,8 +164,6 @@ const checkMailSource = async () => {
 
         if (isSuccess) {
             alert("チェックOKです！");
-            // キャプチャは手動で保存する運用のためいったんコメントアウト
-            // await captureChecklist();
         } else {
             alert("エラー項目を確認して下さい。");
         }
@@ -173,20 +173,14 @@ const checkMailSource = async () => {
     }
 };
 
+
 </script>
 
 <template>
     <div style="width: 100%; max-width: 800px; margin: 0 auto;">
         <h2>Mail用チェックリスト</h2>
 
-        <!-- <div class="MailCheckType">
-            <input type="checkbox" id="biyori" name="checkType" value="biyori" v-model="TypeMail" :disabled="checkFlg == 'ichioshi'">
-            <label for="biyori">日和</label>
-            <input type="checkbox" id="ichioshi" name="checkType" value="ichioshi" v-model="TypeMail" :disabled="checkFlg == 'biyori'">
-            <label for="ichioshi">イチオシ</label>
-        </div> -->
-
-        <MailModeToggle />
+        <MailModeToggle v-model="TypeMail" />
 
         <div class="fileUploader">
             <input id="uploader" type="file" @change="getMailSource">

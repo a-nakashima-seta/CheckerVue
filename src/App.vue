@@ -14,7 +14,6 @@ import WebComp from './components/WebComp.vue';
       <WebComp />
       <MailComp />
     </div>
-    <ShadcnTest />
   </div>
 </template>
 

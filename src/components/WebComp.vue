@@ -18,17 +18,17 @@ import {
 import WebModeToggle from './WebModeToggle.vue';
 
 const WebCheckList: CheckItem[] = [
-    { id: "web1", label: "タイトルは正しいか" },
-    { id: "web2", label: "プリヘッダーはないか" },
-    { id: "web3", label: "冒頭に変数はないか" },
-    { id: "web4", label: "画像のリンク切れはないか" },
-    { id: "web5", label: "$$$utm_campaign$$$がないか" },
-    { id: "web6", label: "※画像がうまく表示されない方はこちらがないか" },
-    { id: "web7", label: "開封タグはないか" },
-    { id: "web8", label: "noindexの記述はあるか" },
-    { id: "web9", label: "フッターが変数化されていないか" },
-    { id: "web10", label: "GTM用の記述があるか" },
-    { id: "web11", label: "faviconは設定されているか" }
+    { id: "mail1", label: "タイトルは正しいか", checkFn: checkPageTitle },
+    { id: "web2", label: "プリヘッダーはないか", checkFn: checkWebPreheader },
+    { id: "web3", label: "冒頭に変数はないか", checkFn: checkWebApplicationNo },
+    { id: "web4", label: "画像のリンク切れはないか", checkFn: checkImageLinks },
+    { id: "web5", label: "$$$utm_campaign$$$がないか", checkFn: checkUTMCampaign },
+    { id: "web6", label: "※画像がうまく表示されない方はこちらがないか", checkFn: checkWebCPNLinkText },
+    { id: "web7", label: "開封タグはないか", checkFn: checkWebOpenTag },
+    { id: "web8", label: "noindexの記述はあるか", checkFn: checkNoIndexMetaTag },
+    { id: "web9", label: "フッターが変数化されていないか", checkFn: checkWebFooter },
+    { id: "web10", label: "GTM用の記述があるか", checkFn: checkGTM },
+    { id: "web11", label: "faviconは設定されているか", checkFn: checkFavicon }
 ];
 
 let WebSource: string = "";
