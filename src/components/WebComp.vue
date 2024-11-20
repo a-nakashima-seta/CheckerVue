@@ -17,7 +17,7 @@ import {
 } from "../utils/CheckFunc";
 import WebModeToggle from './WebModeToggle.vue';
 
-const WebCheckList: CheckItem[] = [
+const WebCheckList = ref<CheckItem[]>([
     { id: "mail1", label: "タイトルは正しいか", checkFn: checkPageTitle },
     { id: "web2", label: "プリヘッダーはないか", checkFn: checkWebPreheader },
     { id: "web3", label: "冒頭に変数はないか", checkFn: checkWebApplicationNo },
@@ -29,15 +29,15 @@ const WebCheckList: CheckItem[] = [
     { id: "web9", label: "フッターが変数化されていないか", checkFn: checkWebFooter },
     { id: "web10", label: "GTM用の記述があるか", checkFn: checkGTM },
     { id: "web11", label: "faviconは設定されているか", checkFn: checkFavicon }
-];
+]);
 
 let WebSource: string = "";
-const selectedChecksWeb = ref(new Array(WebCheckList.length).fill(true));
+const selectedChecksWeb = ref(new Array(WebCheckList.value.length).fill(true));
 const errorMessages = ref<string[]>([]);
-const statusResults = ref<string[]>(new Array(WebCheckList.length).fill(''));
+const statusResults = ref<string[]>(new Array(WebCheckList.value.length).fill(''));
 const checklistRef = ref<HTMLElement | null>(null);
 const url = ref<string>('');
-const checkTypeWeb = ref<string>("normal")
+const checkTypeWeb = ref<string>("通常")
 
 const selectAll = () => {
     selectedChecksWeb.value.fill(true);
@@ -110,75 +110,43 @@ const checkWebSource = async () => {
         return;
     }
 
-    errorMessages.value = [];
-    statusResults.value.fill('');
-
 
     await getWebSource()
 
     if (WebSource !== "") {
+        errorMessages.value = [];
+        statusResults.value.fill('');
+
         const runAllChecks = async () => {
-            if (selectedChecksWeb.value[0]) {
-                const titleCheck = checkPageTitle(WebSource);
-                errorMessages.value.push(titleCheck ? titleCheck : '');
-                statusResults.value[0] = titleCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksWeb.value[1]) {
-                const preheaderCheck = checkWebPreheader(WebSource);
-                errorMessages.value.push(preheaderCheck ? preheaderCheck : '');
-                statusResults.value[1] = preheaderCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksWeb.value[2]) {
-                const applicationNoCheck = checkWebApplicationNo(WebSource);
-                errorMessages.value.push(applicationNoCheck ? applicationNoCheck : '');
-                statusResults.value[2] = applicationNoCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksWeb.value[3]) {
-                const imageCheck = await checkImageLinks(WebSource);
-                errorMessages.value.push(...imageCheck);
-                statusResults.value[3] = imageCheck.length ? 'NG' : 'OK';
-            }
-            if (selectedChecksWeb.value[4]) {
-                const utmCheck = checkUTMCampaign(WebSource);
-                errorMessages.value.push(utmCheck ? utmCheck : '');
-                statusResults.value[4] = utmCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksWeb.value[5]) {
-                const specialTextCheck = checkWebCPNLinkText(WebSource);
-                errorMessages.value.push(specialTextCheck ? specialTextCheck : '');
-                statusResults.value[5] = specialTextCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksWeb.value[6]) {
-                const openTagCheck = checkWebOpenTag(WebSource);
-                errorMessages.value.push(openTagCheck ? openTagCheck : '');
-                statusResults.value[6] = openTagCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksWeb.value[7]) {
-                const noindexCheck = checkNoIndexMetaTag(WebSource);
-                errorMessages.value.push(noindexCheck ? noindexCheck : '');
-                statusResults.value[7] = noindexCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksWeb.value[8]) {
-                const footerCheck = checkWebFooter(WebSource);
-                errorMessages.value.push(footerCheck ? footerCheck : '');
-                statusResults.value[8] = footerCheck ? 'NG' : 'OK';
-            }
-            if (selectedChecksWeb.value[9]) {
-                const GTMCheck = checkGTM(WebSource);
-                errorMessages.value.push(GTMCheck ? GTMCheck : '');
-                statusResults.value[9] = GTMCheck ? 'NG' : 'OK';
+
+            for (let i = 0; i < WebCheckList.value.length; i++) {
+                if (selectedChecksWeb.value[i]) {
+                    const { checkFn } = WebCheckList.value[i];
+                    const result = await checkFn(WebSource);
+
+                    if (Array.isArray(result)) {
+                        result.forEach((message) => {
+                            if (message) {
+                                errorMessages.value.push(message);
+                            }
+                        });
+                    } else {
+                        if (result) {
+                            errorMessages.value.push(result);
+                        }
+                    }
+                    statusResults.value[i] = result && result.length > 0 ? 'NG' : 'OK';
+                }
             }
             if (selectedChecksWeb.value[10]) {
-                const faviconCheck = checkFavicon(WebSource, checkTypeWeb.value === "seac");
-                errorMessages.value.push(faviconCheck ? faviconCheck : '');
+                const faviconCheck = checkFavicon(WebSource, checkTypeWeb.value === "SEAC");
+
+                if (faviconCheck) {
+                    errorMessages.value.push(faviconCheck);
+                }
                 statusResults.value[10] = faviconCheck ? 'NG' : 'OK';
             }
-
-        }
-
-        console.log(WebSource);
-        console.log("結果:", statusResults.value);
-        console.log("エラーメッセージ:", errorMessages.value);
+        };
 
 
         await runAllChecks()
@@ -208,7 +176,7 @@ const checkWebSource = async () => {
                 <label for="seac">SEAC</label>
             </div> -->
 
-            <WebModeToggle />
+            <WebModeToggle v-model="checkTypeWeb" />
 
             <input class="getWebSourceArea" type="text" placeholder="チェック対象のurlを入力してください。" v-model="url">
         </div>

@@ -35,16 +35,16 @@ const selectedChecksMail = ref(new Array(MailCheckList.value.length).fill(true))
 const errorMessages = ref<string[]>([]);
 const statusResults = ref<string[]>(new Array(MailCheckList.value.length).fill(''));
 const checklistRef = ref<HTMLElement>(null!);
-const TypeMail = ref<string>("通常")
+const checkTypeMail = ref<string>("通常")
 
 // 日和とイチオシのオプションを監視
 const checkFlg: ComputedRef<string | undefined> = computed(
     (): string | undefined => {
-        if (TypeMail.value.includes("日和")) {
+        if (checkTypeMail.value.includes("日和")) {
             return "日和"
-        } else if (TypeMail.value.includes("通常")) {
+        } else if (checkTypeMail.value.includes("通常")) {
             return "通常"
-        } else if (TypeMail.value.includes("イチオシ")) {
+        } else if (checkTypeMail.value.includes("イチオシ")) {
             return "イチオシ"
         }
     })
@@ -180,7 +180,7 @@ const checkMailSource = async () => {
     <div style="width: 100%; max-width: 800px; margin: 0 auto;">
         <h2>Mail用チェックリスト</h2>
 
-        <MailModeToggle v-model="TypeMail" />
+        <MailModeToggle v-model="checkTypeMail" />
 
         <div class="fileUploader">
             <input id="uploader" type="file" @change="getMailSource">
