@@ -299,8 +299,7 @@ const checkWebSource = async () => {
 }
 
 .webInputArea {
-  margin-top: 55px;
-  margin-bottom: 67px;
+  margin-bottom: 25px;
 }
 
 .webCheckType {

@@ -4,9 +4,9 @@ import { cn } from "@/lib/utils";
 import { useVModel } from "@vueuse/core";
 
 const props = defineProps<{
+  class?: HTMLAttributes["class"];
   defaultValue?: string | number;
   modelValue?: string | number;
-  class?: HTMLAttributes["class"];
 }>();
 
 const emits = defineEmits<{
@@ -20,12 +20,12 @@ const modelValue = useVModel(props, "modelValue", emits, {
 </script>
 
 <template>
-  <input
+  <textarea
     v-model="modelValue"
     :class="
       cn(
-      'flex min-h-8 w-full rounded-md bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
-      props.class
+        'flex min-h-20 w-full rounded-md bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+        props.class
       )
     "
   />

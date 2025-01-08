@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useSetValues } from "../store/setValues";
+import { Textarea } from "../components/ui/textarea";
 
 const store = useSetValues();
 const inputValue = ref<string>("");
@@ -34,10 +35,11 @@ const handleEdit = (field: "title" | "preheader" | "prod_cd") => {
       class="setArea"
       @submit.prevent="handleSetValues"
     >
-      <textarea
+      <Textarea
         v-model="inputValue"
         placeholder="タイトル, プリヘッダー, 申込番号を3行で入力"
-      ></textarea>
+      />
+
       <button class="setButton">セットする</button>
     </form>
 
