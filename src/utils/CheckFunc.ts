@@ -2,18 +2,27 @@ import { DependentTexts } from "./DependentTexts";
 
 // ページタイトルの確認
 function checkPageTitle(pageSource: string) {
+    const errors: string[] = [];
     const title = localStorage.getItem('title');
     const titleMatch = pageSource.match(/<title>([^<]*)<\/title>/i);
     const pageTitle = titleMatch ? titleMatch[1] : '';
 
-    return title === pageTitle ? null : '・タイトルに誤りがあります';
+    if (title !== pageTitle) {
+        errors.push('・タイトルに誤りがあります');
+    }
+    if (pageTitle.includes('<') || pageTitle.includes('>')) {
+        errors.push('・タイトル内の半角文字<>を全角にしてください');
+    }
+
+    return errors.length > 0 ? errors.join('<br>') : null;
 }
 
 // メール用のプリヘッダーの確認
 function checkMailPreheader(pageSource: string) {
+    const errors: string[] = [];
     const preheaderIdPattern = /id\s*=\s*["']preheader["']/i;
     if (!preheaderIdPattern.test(pageSource)) {
-        return '・id="preheader"を追加してください。';
+        errors.push('・id="preheader"を追加してください。');
     }
 
     const preheaderTagPattern = /id\s*=\s*["']preheader["'][^>]*>([^<]*)<\/[^>]+>/i;
@@ -23,12 +32,18 @@ function checkMailPreheader(pageSource: string) {
     let setPreheaderText = localStorage.getItem('preheader');
     if (setPreheaderText) {
         setPreheaderText = setPreheaderText.trim();
-        return preheaderTagText === setPreheaderText
-            ? null
-            : '・プリヘッダーを確認してください。';
+        if (preheaderTagText !== setPreheaderText) {
+            errors.push('・プリヘッダーを確認してください。');
+        }
     } else {
-        return '・プリヘッダーが設定されていません';
+        errors.push('・プリヘッダーが設定されていません');
     }
+
+    if (preheaderTagText.includes('<') || preheaderTagText.includes('>')) {
+        errors.push('・プリヘッダー内の半角文字<>を全角にしてください');
+    }
+
+    return errors.length > 0 ? errors.join('<br>') : null;
 }
 
 // Web用のプリヘッダーの確認
@@ -37,7 +52,7 @@ function checkWebPreheader(pageSource: string) {
     return preheaderPattern.test(pageSource) ? '・プリヘッダーを削除してください' : null;
 }
 
-// メール用の申込番号の確認
+// メール用の冒頭変数の確認
 function checkMailApplicationNo(pageSource: string): string | null {
     const errors: string[] = [];
     const applicationNo = localStorage.getItem('prod_cd');
