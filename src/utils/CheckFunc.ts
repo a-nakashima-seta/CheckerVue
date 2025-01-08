@@ -272,21 +272,25 @@ const checkDependentText = (pageSource: string) => {
     }
 
     if (foundDependentChars.length > 0) {
-        return `機種依存文字： ${foundDependentChars} が存在します。`;
+        return `・機種依存文字： ${foundDependentChars} が存在します。`;
     }
 };
 
 
 // 日和用のチェック
 // &amp;のチェック
-const checkAmpText = (pageSource: string) => {
+const checkAmpText = (pageSource: string): string | null => {
     const ampTextPattern = /&amp;/i;
-    const ampasand_zenkaku = /＆/i
+    const ampasandZenkaku = /＆/i;
+    const errors: string[] = [];
+
     if (ampTextPattern.test(pageSource)) {
-        return '"&amp;"を"&"に変換してください。';
-    }else if(ampasand_zenkaku.test(pageSource)){
-        return '全角の＆が存在しています。';
+        errors.push('・"&amp;amp;"を"&amp;"に変換してください。<br>');
     }
+    if (ampasandZenkaku.test(pageSource)) {
+        errors.push('・全角の＆が存在しています。<br>');
+    }
+    return errors.length > 0 ? errors.join('') : null;
 }
 
 

@@ -287,7 +287,7 @@ const checkMailSource = async () => {
             v-for="(message, index) in errorMessages"
             :key="index"
           >
-            <p>{{ message }}</p>
+            <p v-html="message"></p>
           </li>
         </ul>
       </div>
