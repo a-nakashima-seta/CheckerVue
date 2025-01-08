@@ -1,0 +1,559 @@
+%%[
+var @currentSystemTime, @currentLocalTime, @tbl_mail_promotion, @application_no, @cp_start_date, @cp_end_date
+SET @currentSystemTime = Now()
+SET @currentLocalTime = SystemDateToLocalDate(@currentSystemTime)
+SET @tbl_mail_promotion = 'mail_promotion_de'
+SET @application_no = '30875'
+SET @cp_start_date = ''
+SET @cp_end_date = ''
+
+/*InsertDE( @tbl_mail_promotion, 'CUSTOMER_NO', _subscriberkey, 'APPLICATION_NO', @application_no, 'CAMPAIGN_START_DATE', @cp_start_date, 'CAMPAIGN_END_DATE', @cp_end_date, 'SENT_DATE', @currentSystemTime ) */
+
+var @unsublink, @contactlink
+SET @unsublink = '<a href="https://www.shizensyokuhin.jp/howto/012.php">こちら</a>'
+SET @contactlink = '<a href="https://www.shizensyokuhin.jp/contact/">こちら</a>'
+]%%
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta name="robots" content="noindex">
+  <link rel="shortcut icon" href="/excludes/dmlite/favicon.ico">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="format-detection" content="telephone=no">
+  <title>ライフスタイル情報マガジン 第489号 世田谷自然食品</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      margin: 0;
+      padding: 0;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    table,
+    td {
+      border-collapse: collapse;
+      mso-table-lspace: 0;
+      mso-table-rspace: 0;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    img {
+      border: 0 none;
+      line-height: 1;
+      outline: none;
+      text-decoration: none;
+    }
+
+    a img {
+      border: 0 none;
+      text-decoration: none;
+    }
+
+    p {
+      color: #333;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .head-line-inner h1 {
+      font-size: 14px;
+      font-weight: normal;
+      color: #fff;
+    }
+
+    .content {
+      width: 100%
+    }
+
+    .to-browser {
+      font-size: 11px;
+      color: #656564;
+      text-align: right;
+      padding: 5px 0;
+    }
+
+    .note {
+      font-size: 12px;
+    }
+
+    .hd_line li {
+      width: 95%;
+      padding-left: 1em;
+      list-style-type: none;
+      text-indent: -1em;
+    }
+
+    .wrapper {
+      max-width: 640px !important;
+    }
+
+    @media only screen and (max-width: 768px) {
+
+      .head-line-inner,
+      .wrapper {
+        width: 100% !important;
+      }
+    }
+  </style>
+</head>
+
+<body style="font-family: Arial, sans-serif;font-size: 16px;margin: 0;padding: 0;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;" cz-shortcut-listen="true">
+  <custom name="opencounter" type="tracking" />
+  <!-- ▼ ヘッダー ▼ -->
+  <table class="head-line-bg" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; table-layout:fixed; word-break:break-all; word-wrap:break-all;">
+    <tbody>
+      <tr>
+        <td style="width:0; min-height:0; mso-hide:all; font-size:0;">
+          <!-- ▼ プリヘッダー ▼ -->
+          <span id="preheader" style="color:#f3f3f3; font-size:0; line-height:0;">＜11/29(金)更新＞健康メニュー｜濃厚なうなぎをさっぱりと「ひつまぶし」</span>
+          <!-- ▲ プリヘッダー ▲ -->
+        </td>
+      </tr>
+      <!-- ▼ 画像が表示されない方 ▼ -->
+      <tr>
+        <td class="to-browser" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;font-size: 11px;color: #656564;text-align: center;">
+          <a href="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/2024/archives1129.html?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd895ba15" style="text-decoration: underline;">※画像が表示されない方はこちら</a>
+        </td>
+      </tr>
+      <!-- ▲ 画像が表示されない方 ▲ -->
+      <tr style="background-color:#4a362e;">
+        <td style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; padding:6px 0;">
+          <table class="head-line-inner" width="100%" align="center" cellpadding="2" style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0;">
+            <tbody>
+              <tr>
+                <td style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0;">
+                  <h1 style="font-size:14px; font-weight:normal; color:#fff; text-align:center; margin:0 auto;">
+                    暮らしに役立つライフスタイル情報マガジン | 第489号
+                  </h1>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- ▲ ヘッダー ▲ -->
+  <!-- ▼ メイン ▼ -->
+  <table class="wrapper" width="100%" align="center" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; table-layout:fixed; word-break:break-all; word-wrap:break-all;">
+    <tbody>
+      <tr>
+        <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;">
+          <table class="content" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;width: 100%;">
+            <!-- ▼ ヒーロー ▼ -->
+            <tbody>
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;">
+                  <img class="responsive-img" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/2024/img/magazin_head_2411.jpg" width="640" alt="" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                </td>
+              </tr>
+              <!-- ▲ ヒーロー ▲ -->
+              <!-- ▼ 導入 ▼ -->
+              <tr>
+                <td class="text-area" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:1em 10px 0;">
+                  <p style="color: #333;font-size: 16px;line-height: 1.7; text-align:left; margin: 0;">
+                    %%CUSTOMER_SEI_KJ%%%%CUSTOMER_MEI_KJ%%様<br>
+                    こんにちは。世田谷自然食品の栗原です。<br>
+                    皆さまへ暮らしに役立つ情報をお届けいたします。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-area" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:1em 10px 60px;">
+                  <span style="display:block; text-align:left; font-weight:bold; color:#402000">＜ 目次 ＞</span>
+                  <div class="hd_line" style="margin:0; padding:0; list-style-type:none; text-align:left;">
+
+                    <p style="margin: 0;"><span>・</span>【クイズ】冬の野菜なのに “春”菊と呼ばれるのはなぜ？</p>
+
+                    <p style="margin: 0;"><span>・</span>【食の知識】健康メニュー｜濃厚なうなぎをさっぱりと「ひつまぶし」</p>
+
+                  </div>
+                  <br>
+                  <p style="color: #333;font-size: 16px;line-height: 1.7; text-align:left; margin:0 auto;">
+                    どれも暮らしに役立つコンテンツとなっておりますので、ぜひ最後までご覧ください。
+                  </p>
+                </td>
+              </tr>
+              <!-- ▲ 導入 ▲ -->
+            </tbody>
+          </table>
+          <!-- ▼ おすすめ商品 ▼ -->
+          <table class="content" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;width: 100%;">
+            <tbody>
+              <tr>
+                <td style="border-collapse:collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding: 0;">
+                  <h2 style="margin: 0;padding: 12px 0;font-size: 20px;color: #4a362e;text-align: center;border-top: 2px solid #4a362e;border-bottom: 2px solid #4a362e;">
+                    今週のおすすめ商品
+                  </h2>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;  padding:20px 10px 60px 10px;">
+                  <a href="https://www.shizensyokuhin.jp/products/detail.html?prod_id=60131&c_cd=001004&utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd89dafed" style="text-decoration: underline;">
+                    <img class="responsive-img" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/2024/img/0489/601_bana_fish.jpg" width="640" alt="undefined" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- ▲ おすすめ商品 ▲ -->
+          <!-- ▼ 特集 ▼ -->
+          <table class="content" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;width: 100%;">
+            <tbody>
+              <tr>
+                <td style="border-collapse:collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding: 0;">
+                  <h2 style="margin: 0;padding: 12px 0;font-size: 20px;color: #4a362e;text-align: center;border-top: 2px solid #4a362e;border-bottom: 2px solid #4a362e;">
+                    新着コンテンツ
+                  </h2>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;  padding:20px 10px 20px 10px;">
+                  <a href="https://www.shizensyokuhin.jp/contents/quiz/?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd89e5294" style="text-decoration: underline;">
+                    <img class="responsive-img" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/img/quiz/quiz_title.jpg" width="640" alt="" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-area" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:0 10px 20px;">
+                  <p style="color: #333;font-size: 16px;line-height: 1.7; text-align:left; margin:0 auto;">
+                    【クイズ】冬の野菜なのに “春”菊と呼ばれるのはなぜ？<br>わかばくんと一緒にアタマの体操！<br>スーパーや青果店にならぶ春菊を見て、「そろそろお鍋の季節だな！」と思う方も多いはず。今回は春菊という名の由来を解説します。
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="text-area" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:0 10px 30px;">
+                  <div class="hd_line" style="margin:0; padding:0; list-style-type:none; text-align:left; font-weight:bold; color:#402000;">
+                    <p style="color: #333;font-size: 16px;line-height: 1.7; text-align:left; margin:0 auto; font-weight:bold; color:#402000;">＜問題＞<br>冬が旬の春菊なのに、名前に「春」がつく理由は？<br><br>A. お正月（＝新春）に食べたい野菜だから<br>B. 原産地の地中海では春が旬だから<br>C. 葉が菊に似ていて、春に花が咲くから</p>
+                  </div>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;  padding:30px 0 0;text-align: center;">
+                </td>
+              </tr>
+
+              <!-- ▼ 答えを見る ＞ ▼ -->
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; text-align:center; padding: 0 0 20px;">
+                  <div align="center">
+                    <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:50px;width:300px;v-text-anchor:middle;" arcsize="10%" strokeweight="1pt" strokecolor="#DDDDDD" fillcolor="#F9F7F4"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#402000; font-size:16px"><![endif]-->
+                    <a href="https://www.shizensyokuhin.jp/contents/quiz/detail/0018.html?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd89f0172#quiz" style="border-radius:8px; text-decoration:none;display:block;color: #402000;width: 62.5%;background-color: #F9F7F4;border: solid 1px #DDDDDD;padding: 16px 0;font-weight: bold;font-size: 16px;font-weight: bold;text-align:center;mso-border-alt:none;" class="p-mail__button">
+                      <span style="line-height: 22px;" class="p-mail__button--text">
+                        答えを見る ＞
+                      </span>
+                    </a>
+                    <!--[if mso]></center></v:textbox></v:roundrect><![endif]-->
+                  </div>
+                </td>
+              </tr>
+              <!-- ▲ 答えを見る ＞ ▲ -->
+
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; text-align:center; padding: 40px 0 0;">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- ▲ 特集 ▲ -->
+          <!-- ▼ 新着記事 ▼ -->
+          <table class="content" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; width:100%;">
+            <tbody>
+              <tr>
+                <td style="border-collapse:collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding: 0;">
+                  <h2 style="margin: 0;padding: 12px 0;font-size: 20px;color: #4a362e;text-align: center;border-top: 2px solid #4a362e;border-bottom: 2px solid #4a362e;">
+                    新着記事
+                  </h2>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- ▼ article1 ▼ -->
+          <table class="content" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; width:100%;">
+            <tbody>
+              <tr>
+                <td style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; padding:20px 10px 0;">
+                  <a href="https://www.shizensyokuhin.jp/archives/articles/1274?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6747fcdb87fc0">
+                    <img src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/2024/img/0489/0489_img01.jpg" width="640" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; padding:28px 10px 0;">
+                  <p style="color: #333;font-size: 16px;line-height: 1.7;margin: 0;">
+                    2024年11月29日（金）更新
+                  </p>
+                  <h3 class="article-title" style="margin:0; font-size:18px; font-weight:bold; padding:0; color:#4a362e; text-align:left; line-height:1.7;">
+                    <a href="https://www.shizensyokuhin.jp/archives/articles/1274?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6747fcdb87fc0" style="text-decoration:underline; color:#333;">
+                      【食の知識】健康メニュー｜濃厚なうなぎをさっぱりと「ひつまぶし」
+                    </a>
+                  </h3>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; padding:22px 10px 28px;">
+                  <p class="" style="margin:0; color:#333; font-size:16px; line-height:1.7;">
+                    うな重として食べるのがポピュラーなうなぎですが、もう一つ、名古屋名物の「ひつまぶし」もうなぎの食べ方としてよく知られています。ひつまぶしは食べ方が3種類あるのが大きな特徴で、うな重とは異なるうなぎを味わえます。今回は、ひつまぶしの由来や食材に含まれる栄養などについてご紹介します。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; text-align:center; padding: 0 0 40px;">
+                  <div align="center">
+                    <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:50px;width:300px;v-text-anchor:middle;" arcsize="10%" strokeweight="1pt" strokecolor="#DDDDDD" fillcolor="#F9F7F4"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#402000; font-size:16px"><![endif]-->
+                    <a href="https://www.shizensyokuhin.jp/archives/articles/1274?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6747fcdb87fc0" style="border-radius:8px; text-decoration:none;display:block;color: #402000;width: 62.5%;background-color: #F9F7F4;border: solid 1px #DDDDDD;padding: 16px 0;font-weight: bold;font-size: 16px;font-weight: bold;text-align:center;mso-border-alt:none;" class="p-mail__button">
+                      <span style="line-height: 22px;" class="p-mail__button--text">
+                        記事を読む ＞
+                      </span>
+                    </a>
+                    <!--[if mso]></center></v:textbox></v:roundrect><![endif]-->
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- ▲ article1 ▲ -->
+
+          <!-- ▲ 新着記事 ▲ -->
+
+          <!-- ▼ おすすめコンテンツ ▼ -->
+          <table class="main-content-image content" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;width: 100%;">
+            <tbody>
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;">
+                  <h2 style="margin: 0;padding: 12px 0;font-size: 20px;color: #4a362e;text-align: center;border-top: 2px solid #4a362e;border-bottom: 2px solid #4a362e;">
+                    おすすめコンテンツ
+                  </h2>
+                </td>
+              </tr>
+
+              <!-- ▼ ［WEB限定！］今月のキャンペーン ▼ -->
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:20px 10px 0;">
+                  <a href="https://www.shizensyokuhin.jp/campaign/?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd8a12744" style="text-decoration: underline;">
+                    <img class="responsive-img" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/img/campaign/cp_2411.jpg" width="640" alt="［WEB限定！］今月のキャンペーン" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                  </a>
+                </td>
+              </tr>
+              <!-- ▲ ［WEB限定！］今月のキャンペーン ▲ -->
+
+              <!-- ▼ 暮らしに役立つライフスタイル情報トップページ ▼ -->
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:20px 10px 0;">
+                  <a href="https://www.shizensyokuhin.jp/archives/?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd8a1f9d1" style="text-decoration: underline;">
+                    <img class="responsive-img" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/img/common/lifestyle.jpg" width="640" alt="暮らしに役立つライフスタイル情報トップページ" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                  </a>
+                </td>
+              </tr>
+              <!-- ▲ 暮らしに役立つライフスタイル情報トップページ ▲ -->
+
+              <!-- ▼ 占い ▼ -->
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:20px 10px 0;">
+                  <a href="https://www.shizensyokuhin.jp/contents/fortune/?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd8a29f0a" style="text-decoration: underline;">
+                    <img class="responsive-img" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/img/fortune/fortune_banner.jpg" width="640" alt="占い" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                  </a>
+                </td>
+              </tr>
+              <!-- ▲ 占い ▲ -->
+
+              <!-- ▼ 診断 ▼ -->
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:20px 10px 0;">
+                  <a href="https://www.shizensyokuhin.jp/contents/diagnosis/?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd8a34224" style="text-decoration: underline;">
+                    <img class="responsive-img" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/img/diagnosis/diagnosis_banner.jpg" width="640" alt="診断" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                  </a>
+                </td>
+              </tr>
+              <!-- ▲ 診断 ▲ -->
+
+              <!-- ▼ 冬ギフト ▼ -->
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:20px 10px 0;">
+                  <a href="https://www.shizensyokuhin.jp/campaign/gift/wintergift/?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd8a3e289" style="text-decoration: underline;">
+                    <img class="responsive-img" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/img/wintergift/wintergift_bnr.jpg" width="640" alt="冬ギフト" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                  </a>
+                </td>
+              </tr>
+              <!-- ▲ 冬ギフト ▲ -->
+
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:0 0 60px;">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- ▲ おすすめコンテンツ ▲ -->
+
+          <!-- ▼ 編集後記 ▼ -->
+          <table class="main-content-image content" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;width: 100%;">
+            <tbody>
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;">
+                  <img class="responsive-img" alt="編集後記" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/img/common/banner_edit_kurihara.jpg" width="640" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                </td>
+              </tr>
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:20px 10px 0;">
+                  <p style="color: #333;font-size: 16px;line-height: 1.7; margin:0 auto;">
+                    あっという間に今年も残り1ヵ月ほどとなりました。先日、来年用の卓上カレンダーを購入して、改めて実感しました。<br>忘年会などの飲み会も増えてきますが、飲み過ぎないように気をつけ、また大掃除は早めに少しずつ進めていきたいと思っています。<br>毎年思うことではありますが、今年こそはしっかりと取り組めるように頑張ります。みなさまも、一緒にこの一年を有意義に締めくくりましょう！
+                  </p>
+                  <p style="color: #333;font-size: 16px;line-height: 1.7; margin:1em auto 0; text-align: right;">
+                    世田谷自然食品 栗原
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:0 0 60px;">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- ▲ 編集後記 ▲ -->
+
+          <!-- ▼ リンク一覧 ▼ -->
+          <table class="content" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;width: 100%;">
+            <tbody>
+
+              <!-- ▼ 世田谷自然食品公式トップページはこちら ▼ -->
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:20px 10px 0;">
+                  <a href="https://www.shizensyokuhin.jp/?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd8a483fa" style="text-decoration: underline;">
+                    <img class="responsive-img" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/img/common/ec_top_2401.jpg" width="640" alt="世田谷自然食品公式トップページはこちら" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                  </a>
+                </td>
+              </tr>
+              <!-- ▲ 世田谷自然食品公式トップページはこちら ▲ -->
+
+              <!-- ▼ 健康食品・サプリメントはこちら ▼ -->
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:20px 10px 0;">
+                  <a href="https://www.shizensyokuhin.jp/cate1/?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd8a52df4" style="text-decoration: underline;">
+                    <img class="responsive-img" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/img/common/cate1.jpg" width="640" alt="健康食品・サプリメントはこちら" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                  </a>
+                </td>
+              </tr>
+              <!-- ▲ 健康食品・サプリメントはこちら ▲ -->
+
+              <!-- ▼ 食品・飲料はこちら ▼ -->
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:20px 10px 0;">
+                  <a href="https://www.shizensyokuhin.jp/cate2/?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd8a5cf4e" style="text-decoration: underline;">
+                    <img class="responsive-img" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/img/common/cate2.jpg" width="640" alt="食品・飲料はこちら" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                  </a>
+                </td>
+              </tr>
+              <!-- ▲ 食品・飲料はこちら ▲ -->
+
+              <!-- ▼ 厳選グルメ特選便はこちら ▼ -->
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:20px 10px 0;">
+                  <a href="https://www.shizensyokuhin.jp/cate4/?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd8a68599" style="text-decoration: underline;">
+                    <img class="responsive-img" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/img/common/cate4.jpg" width="640" alt="厳選グルメ特選便はこちら" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+                  </a>
+                </td>
+              </tr>
+              <!-- ▲ 厳選グルメ特選便はこちら ▲ -->
+
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:0 0 60px;">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- ▲ リンク一覧 ▲ -->
+
+          <!-- ▼ 公式LINE ▼ -->
+          <table class="main-content-image content" cellpadding="0" cellspacing="0" align="center" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;width: 100%; max-width: 640px;">
+            <tbody>
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:0 10px;">
+                  <h2 style="margin: 0;padding: 12px 0;font-size: 16px;color: #06C655;text-align: center;border-top: 2px solid #06C655;border-bottom: 2px solid #06C655;">
+                    世田谷自然食品 「公式LINE」はこちら
+                  </h2>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:20px 10px 0;">
+                  <p style="color: #333;font-size: 16px;line-height: 1.7; margin:0 auto;">
+                    ご登録いただくとお問い合わせやマイページへのログインがしやすくなります！<br>また、お友だち限定のお知らせなども定期的にお届けします。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:20px 10px 60px;">
+                  <a href="https://www.shizensyokuhin.jp/campaign/line_2303/?utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd8a7487e">
+                    <img width="640" style="width: 100%; margin:0 auto;" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/img/common/LINE_bnr_300pt.jpg" alt="LINE登録の詳細はこちら">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- ▲ 公式LINE ▲ -->
+          <!-- ▼ レビュー ▼ -->
+          <table class="main-content-image content" cellpadding="0" cellspacing="0" align="center" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;width: 100%; max-width: 640px;">
+            <tbody>
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;padding:0 10px 20px;">
+                  <h2 style="margin: 0;padding: 12px 0;font-size: 16px;color: #fc7c00;text-align: center;border-top: 2px solid #fc7c00;border-bottom: 2px solid #fc7c00;">
+                    商品に対するご感想はこちら
+                  </h2>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:20px 10px 0;">
+                  <p style="color: #333;font-size: 16px;line-height: 1.7; margin:0 auto;">
+                    ぜひ、商品について感想やお気づきの点などお聞かせください。品質・サービス向上・皆様の参考のためにご協力いただければ幸いです。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:20px 10px 0px;">
+                  <a href="https://www.shizensyokuhin.jp/products/review/form/?from=mail&utm_source=archives&utm_medium=mail&utm_campaign=archives489&argument=zXKEm5gk&dmai=a6743cd8a7f10b">
+                    <img width="640" style="width: 100%; margin:0 auto;" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/archives/img/common/bnr_review.png" alt="レビューの投稿はこちらから">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- ▲ レビュー ▲ -->
+          <!-- ▼ 注釈 ▼ -->
+          <table class="content" cellpadding="0" cellspacing="0" align="center" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;width: 100%; max-width: 640px;">
+            <tbody>
+              <tr>
+                <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:32px 10px 12px;">
+                  <p class="note" style="color: #333;font-size: 12px;line-height: 1.7; margin:0 auto 0;">
+                    ・このメールは配信専用です。このメールに返信いただいても内容を確認することができません。<br>
+                    ・お問い合わせは%%=TreatAsContent(@contactlink)=%%からお願いします。<br>
+                    ・配信の解除は%%=TreatAsContent(@unsublink)=%%からお願いします。<br>
+                    ※システムの都合上、配信解除お手続き完了後2〜3回メールが届く場合がございます。<br>
+                    あらかじめご了承くださいますようお願いいたします。<br>
+                    株式会社世田谷自然食品 〒158-0097 東京都世田谷区用賀4-10-1
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- ▲ 注釈 ▲ -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- ▲ メイン ▲ -->
+  <!-- ▼ ebisタグ挿入箇所 ▼ -->
+
+  <!-- ▲ ebisタグ挿入箇所 ▲ -->
+</body>
+
+</html>

@@ -278,10 +278,14 @@ const checkDependentText = (pageSource: string) => {
 
 
 // 日和用のチェック
+// &amp;のチェック
 const checkAmpText = (pageSource: string) => {
     const ampTextPattern = /&amp;/i;
+    const ampasand_zenkaku = /＆/i
     if (ampTextPattern.test(pageSource)) {
         return '"&amp;"を"&"に変換してください。';
+    }else if(ampasand_zenkaku.test(pageSource)){
+        return '全角の＆が存在しています。';
     }
 }
 
