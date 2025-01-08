@@ -38,7 +38,7 @@ function checkWebPreheader(pageSource: string) {
 }
 
 // メール用の申込番号の確認
-function checkMailApplicationNo(pageSource: string) {
+function checkMailApplicationNo(pageSource: string): string | null {
     const errors: string[] = [];
     const applicationNo = localStorage.getItem('prod_cd');
 
@@ -50,11 +50,32 @@ function checkMailApplicationNo(pageSource: string) {
     const monthDeclarationPattern = /var\s+.*@Month/;
     const monthAssignmentPattern = /SET\s+@Month\s*=\s*FORMAT\(/;
 
-    if (!monthDeclarationPattern.test(pageSource) || !monthAssignmentPattern.test(pageSource)) {
+    if (!monthDeclarationPattern.test(pageSource) && !monthAssignmentPattern.test(pageSource)) {
         errors.push('・冒頭変数内@Monthの記述に誤りがあります。');
     }
 
-    return errors.length > 0 ? errors : null;
+    const unsublinkPattern = /SET\s+@unsublink\s*=\s*'<a\s+href="https:\/\/www\.shizensyokuhin\.jp\/howto\/012\.php">こちら<\/a>'/;
+    if (!unsublinkPattern.test(pageSource)) {
+        errors.push('・冒頭変数内@unsublinkのリンクに誤りがあります');
+    }
+
+    const contactlinkPattern = /SET\s+@contactlink\s*=\s*'<a\s+href="https:\/\/www\.shizensyokuhin\.jp\/contact\/">こちら<\/a>'/;
+    if (!contactlinkPattern.test(pageSource)) {
+        errors.push('・冒頭変数内@contactlinkのリンクに誤りがあります');
+    }
+
+    const commentedUnsublinkPattern = /<!--\s*SET\s+@unsublink\s*=\s*'<a\s+href="https:\/\/www\.shizensyokuhin\.jp\/howto\/012\.php">こちら<\/a>'\s*-->/;
+    const commentedContactlinkPattern = /<!--\s*SET\s+@contactlink\s*=\s*'<a\s+href="https:\/\/www\.shizensyokuhin\.jp\/contact\/">こちら<\/a>'\s*-->/;
+
+    if (!unsublinkPattern.test(pageSource) && !commentedUnsublinkPattern.test(pageSource)) {
+        errors.push('・冒頭変数内@unsublinkのリンクが存在しません');
+    }
+
+    if (!contactlinkPattern.test(pageSource) && !commentedContactlinkPattern.test(pageSource)) {
+        errors.push('・冒頭変数内@contactlinkのリンクが存在しません');
+    }
+
+    return errors.length > 0 ? errors.join('<br>') : null;
 }
 
 // Web用の申込番号の確認
