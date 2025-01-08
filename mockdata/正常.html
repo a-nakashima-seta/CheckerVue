@@ -1,11 +1,12 @@
 %%[
-var @currentSystemTime, @currentLocalTime, @tbl_mail_promotion, @application_no, @cp_start_date, @cp_end_date
+var @currentSystemTime, @currentLocalTime, @tbl_mail_promotion, @application_no, @cp_start_date, @cp_end_date, @Month
 SET @currentSystemTime = Now()
 SET @currentLocalTime = SystemDateToLocalDate(@currentSystemTime)
 SET @tbl_mail_promotion = 'mail_promotion_de'
 SET @application_no = '30879'
 SET @cp_start_date = ''
 SET @cp_end_date = ''
+SET @Month = FORMAT(@currentLocalTime, '%M')
 
 /*InsertDE( @tbl_mail_promotion, 'CUSTOMER_NO', _subscriberkey, 'APPLICATION_NO', @application_no, 'CAMPAIGN_START_DATE', @cp_start_date, 'CAMPAIGN_END_DATE', @cp_end_date, 'SENT_DATE', @currentSystemTime ) */
 

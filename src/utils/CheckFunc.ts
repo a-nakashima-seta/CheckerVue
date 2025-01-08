@@ -39,10 +39,22 @@ function checkWebPreheader(pageSource: string) {
 
 // メール用の申込番号の確認
 function checkMailApplicationNo(pageSource: string) {
+    const errors: string[] = [];
     const applicationNo = localStorage.getItem('prod_cd');
 
     const pattern = new RegExp(`SET @application_no = '${applicationNo}'`);
-    return pattern.test(pageSource) ? null : '・冒頭変数または申込番号に誤りがあります';
+    if (!pattern.test(pageSource)) {
+        errors.push('・冒頭変数または申込番号に誤りがあります');
+    }
+
+    const monthDeclarationPattern = /var\s+.*@Month/;
+    const monthAssignmentPattern = /SET\s+@Month\s*=\s*FORMAT\(/;
+
+    if (!monthDeclarationPattern.test(pageSource) || !monthAssignmentPattern.test(pageSource)) {
+        errors.push('・冒頭変数内@Monthの記述に誤りがあります。');
+    }
+
+    return errors.length > 0 ? errors : null;
 }
 
 // Web用の申込番号の確認
@@ -314,5 +326,5 @@ export {
     checkGTM,
     checkFavicon,
     checkDependentText,
-    checkAmpText
+    checkAmpText,
 };

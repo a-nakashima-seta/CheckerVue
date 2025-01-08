@@ -23,7 +23,7 @@ const MailCheckList = ref<CheckItem[]>([
   { id: "mail2", label: "プリヘッダーは正しいか", checkFn: checkMailPreheader },
   {
     id: "mail3",
-    label: "冒頭に変数があり、正しい申込番号が入っているか",
+    label: "冒頭変数の記述に誤りはないか",
     checkFn: checkMailApplicationNo,
   },
   { id: "mail4", label: "画像のリンク切れはないか", checkFn: checkImageLinks },
@@ -92,7 +92,7 @@ watch(checkFlg, (newFlg) => {
     }
   }
 
-  // "biyori"のときはmail10,mail11,mail12を追加
+  // "日和"のときはmail10,mail11,mail12を追加
   if (newFlg === "日和") {
     MailCheckList.value.push(
       {
