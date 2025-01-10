@@ -14,6 +14,7 @@ import {
   checkMailFooter,
   checkDependentText,
   checkAmpText,
+  checkButtonTextBiyori,
 } from "../utils/CheckFunc";
 
 // import { color } from 'html2canvas/dist/types/css/types/color';
@@ -95,11 +96,11 @@ watch(checkFlg, (newFlg) => {
   // "日和"のときはmail10,mail11,mail12を追加
   if (newFlg === "日和") {
     MailCheckList.value.push(
-      // {
-      //   id: "mail10",
-      //   label: "新着コンテンツエリア内のボタンテキストは適切か",
-      //   checkFn: checkMailCPNLinkText,
-      // },
+      {
+        id: "mail10",
+        label: "新着コンテンツエリア内のボタンテキストは適切か",
+        checkFn: checkButtonTextBiyori,
+      },
       // {
       //   id: "mail11",
       //   label:

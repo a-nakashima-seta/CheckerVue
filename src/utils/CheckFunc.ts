@@ -74,11 +74,11 @@ function checkMailApplicationNo(pageSource: string): string | null {
     // コメントを取り除く正規表現
     const stripCommentsPattern = /<!--[\s\S]*?-->/g;
     const cleanedSource = pageSource.replace(stripCommentsPattern, '');
-    
+
     if (!unsublinkPattern.test(cleanedSource)) {
         errors.push('・冒頭変数内@unsublinkの記述に誤りがあります');
     }
-    
+
     if (!contactlinkPattern.test(cleanedSource)) {
         errors.push('・冒頭変数内@contactlinkの記述に誤りがあります');
     }
@@ -334,8 +334,27 @@ const checkAmpText = (pageSource: string): string | null => {
     return errors.length > 0 ? errors.join('') : null;
 }
 
+function checkButtonTextBiyori(pageSource: string) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(pageSource, 'text/html');
+    const buttons = doc.querySelectorAll('.p-mail__button');
+    const errors: string[] = [];
 
+    buttons.forEach((button) => {
+        const href = button.getAttribute('href');
+        const buttonText = button.querySelector('.p-mail__button--text')?.textContent?.trim();
 
+        if (href && buttonText) {
+            if (href.includes('quiz') && buttonText !== '答えを見る ＞') {
+                errors.push(`・新着コンテンツのテキストが誤っています。期待されるテキスト: "答えを見る ＞"`);
+            } else if (href.includes('diagnosis') && buttonText !== '結果を見る ＞') {
+                errors.push(`・新着コンテンツのテキストが誤っています。期待されるテキスト: "結果を見る ＞"`);
+            }
+        }
+    });
+
+    return errors.length > 0 ? errors.join('<br>') : null;
+}
 
 export {
     checkPageTitle,
@@ -356,4 +375,5 @@ export {
     checkFavicon,
     checkDependentText,
     checkAmpText,
+    checkButtonTextBiyori,
 };
