@@ -8,7 +8,7 @@ import WebComp from './components/WebComp.vue';
 
 <template>
   <div>
-    <h1>HTML Checker</h1>
+    <h1 class="text-emerald-600 font-bold">HTML Checker</h1>
     <SetValuesComp />
     <div style="display: flex; gap: 2%;">
       <WebComp />

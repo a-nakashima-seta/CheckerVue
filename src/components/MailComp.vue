@@ -95,17 +95,17 @@ watch(checkFlg, (newFlg) => {
   // "日和"のときはmail10,mail11,mail12を追加
   if (newFlg === "日和") {
     MailCheckList.value.push(
-      {
-        id: "mail10",
-        label: "新着コンテンツエリア内のボタンテキストは適切か",
-        checkFn: checkMailCPNLinkText,
-      },
-      {
-        id: "mail11",
-        label:
-          "新着コンテンツエリア内のボタン遷移先URLの末尾パラメータは適切か",
-        checkFn: checkMailCPNLinkText,
-      },
+      // {
+      //   id: "mail10",
+      //   label: "新着コンテンツエリア内のボタンテキストは適切か",
+      //   checkFn: checkMailCPNLinkText,
+      // },
+      // {
+      //   id: "mail11",
+      //   label:
+      //     "新着コンテンツエリア内のボタン遷移先URLの末尾パラメータは適切か",
+      //   checkFn: checkMailCPNLinkText,
+      // },
       {
         id: "mail12",
         label: '"&amp;"を"&"に置換できているか',
@@ -222,6 +222,7 @@ const checkMailSource = async () => {
 
     <div class="fileUploader">
       <input
+        class="border-2 border-emerald-500"
         id="uploader"
         type="file"
         @change="getMailSource"
@@ -303,7 +304,6 @@ const checkMailSource = async () => {
 .fileUploader input {
   background-color: #ffffff;
   padding: 5em 8em 3em;
-  border: solid 2px #00dc82;
   border-radius: 5px;
   position: relative;
   cursor: pointer;

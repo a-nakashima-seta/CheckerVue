@@ -66,28 +66,21 @@ function checkMailApplicationNo(pageSource: string): string | null {
     const monthAssignmentPattern = /SET\s+@Month\s*=\s*FORMAT\(/;
 
     if (!monthDeclarationPattern.test(pageSource) && !monthAssignmentPattern.test(pageSource)) {
-        errors.push('・冒頭変数内@Monthの記述に誤りがあります。');
+        errors.push('・冒頭変数内@Monthの記述に誤りがあります');
     }
-
     const unsublinkPattern = /SET\s+@unsublink\s*=\s*'<a\s+href="https:\/\/www\.shizensyokuhin\.jp\/howto\/012\.php">こちら<\/a>'/;
-    if (!unsublinkPattern.test(pageSource)) {
-        errors.push('・冒頭変数内@unsublinkのリンクに誤りがあります');
-    }
-
     const contactlinkPattern = /SET\s+@contactlink\s*=\s*'<a\s+href="https:\/\/www\.shizensyokuhin\.jp\/contact\/">こちら<\/a>'/;
-    if (!contactlinkPattern.test(pageSource)) {
-        errors.push('・冒頭変数内@contactlinkのリンクに誤りがあります');
+
+    // コメントを取り除く正規表現
+    const stripCommentsPattern = /<!--[\s\S]*?-->/g;
+    const cleanedSource = pageSource.replace(stripCommentsPattern, '');
+    
+    if (!unsublinkPattern.test(cleanedSource)) {
+        errors.push('・冒頭変数内@unsublinkの記述に誤りがあります');
     }
-
-    const commentedUnsublinkPattern = /<!--\s*SET\s+@unsublink\s*=\s*'<a\s+href="https:\/\/www\.shizensyokuhin\.jp\/howto\/012\.php">こちら<\/a>'\s*-->/;
-    const commentedContactlinkPattern = /<!--\s*SET\s+@contactlink\s*=\s*'<a\s+href="https:\/\/www\.shizensyokuhin\.jp\/contact\/">こちら<\/a>'\s*-->/;
-
-    if (!unsublinkPattern.test(pageSource) && !commentedUnsublinkPattern.test(pageSource)) {
-        errors.push('・冒頭変数内@unsublinkのリンクが存在しません');
-    }
-
-    if (!contactlinkPattern.test(pageSource) && !commentedContactlinkPattern.test(pageSource)) {
-        errors.push('・冒頭変数内@contactlinkのリンクが存在しません');
+    
+    if (!contactlinkPattern.test(cleanedSource)) {
+        errors.push('・冒頭変数内@contactlinkの記述に誤りがあります');
     }
 
     return errors.length > 0 ? errors.join('<br>') : null;
