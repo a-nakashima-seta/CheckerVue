@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed, ComputedRef, watch } from "vue";
 import { CheckItem } from "../types/types";
 import { Input } from "../components/ui/input";
 
@@ -15,6 +15,9 @@ import {
   checkWebFooter,
   checkGTM,
   checkFavicon,
+  checkButtonTextBiyori,
+  checkButtonHrefBiyori,
+  checkAmpText,
 } from "../utils/CheckFunc";
 import WebModeToggle from "./WebModeToggle.vue";
 
@@ -53,6 +56,52 @@ const statusResults = ref<string[]>(
 const checklistRef = ref<HTMLElement | null>(null);
 const url = ref<string>("");
 const checkTypeWeb = ref<string>("通常");
+
+// トグルオプションを監視
+const checkFlg: ComputedRef<string | undefined> = computed(
+  (): string | undefined => {
+    if (checkTypeWeb.value.includes("日和")) {
+      return "日和";
+    } else if (checkTypeWeb.value.includes("通常")) {
+      return "通常";
+    } else if (checkTypeWeb.value.includes("SEAC")) {
+      return "SEAC";
+    }
+  }
+);
+
+watch(checkFlg, (newFlg) => {
+  if (newFlg === "日和") {
+    WebCheckList.value.push(
+      {
+        id: "web12",
+        label: "新着コンテンツエリア内のボタンテキストは適切か",
+        checkFn: checkButtonTextBiyori,
+      },
+      {
+        id: "web13",
+        label:
+          "新着コンテンツエリア内のボタン遷移先URLの末尾パラメータは適切か",
+        checkFn: checkButtonHrefBiyori,
+      },
+      {
+        id: "web14",
+        label: '"&amp;"を"&"に置換できているか',
+        checkFn: checkAmpText,
+      }
+    );
+  } else {
+    // "biyori" 以外のときは web12, web13, web14 を削除
+    const idsToRemove = ["web12", "web13", "web14"];
+    idsToRemove.forEach((id) => {
+      const index = WebCheckList.value.findIndex((item) => item.id === id);
+      if (index !== -1) {
+        WebCheckList.value.splice(index, 1);
+      }
+    });
+  }
+  selectedChecksWeb.value = new Array(WebCheckList.value.length).fill(true);
+});
 
 const selectAll = () => {
   selectedChecksWeb.value.fill(true);
@@ -182,7 +231,7 @@ const checkWebSource = async () => {
 
 <template>
   <div style="width: 100%; max-width: 800px; margin: 0 auto">
-    <h2>Web用チェックリスト</h2>
+    <h2 class="text-xl font-bold text-cyan-900">Web用チェックリスト</h2>
     <div class="webInputArea">
       <!-- <div class="webCheckType">
                 <input type="radio" id="normal" name="checkType" value="normal" v-model="checkTypeWeb">
@@ -227,7 +276,7 @@ const checkWebSource = async () => {
         class="checkList"
         ref="checklistRef"
       >
-        <h3 class="checkTypeName">Web</h3>
+        <h3 class="checkTypeName text-xl font-bold text-cyan-900">Web</h3>
         <li
           v-for="(item, index) in WebCheckList"
           :key="item.id"

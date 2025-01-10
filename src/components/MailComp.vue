@@ -217,7 +217,7 @@ const checkMailSource = async () => {
 
 <template>
   <div style="width: 100%; max-width: 800px; margin: 0 auto">
-    <h2>Mail用チェックリスト</h2>
+    <h2 class="text-xl font-bold text-cyan-900">Mail用チェックリスト</h2>
     <div>
       <MailModeToggle v-model="checkTypeMail" />
     </div>
@@ -251,7 +251,7 @@ const checkMailSource = async () => {
         class="checkList"
         ref="checklistRef"
       >
-        <h3 class="checkTypeName">Mail</h3>
+        <h3 class="checkTypeName text-xl font-bold text-cyan-900">Mail</h3>
         <li
           v-for="(item, index) in MailCheckList"
           :key="item.id"
