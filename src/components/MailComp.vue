@@ -15,6 +15,7 @@ import {
   checkDependentText,
   checkAmpText,
   checkButtonTextBiyori,
+  checkButtonHrefBiyori,
 } from "../utils/CheckFunc";
 
 // import { color } from 'html2canvas/dist/types/css/types/color';
@@ -101,12 +102,12 @@ watch(checkFlg, (newFlg) => {
         label: "新着コンテンツエリア内のボタンテキストは適切か",
         checkFn: checkButtonTextBiyori,
       },
-      // {
-      //   id: "mail11",
-      //   label:
-      //     "新着コンテンツエリア内のボタン遷移先URLの末尾パラメータは適切か",
-      //   checkFn: checkMailCPNLinkText,
-      // },
+      {
+        id: "mail11",
+        label:
+          "新着コンテンツエリア内のボタン遷移先URLの末尾パラメータは適切か",
+        checkFn: checkButtonHrefBiyori,
+      },
       {
         id: "mail12",
         label: '"&amp;"を"&"に置換できているか',

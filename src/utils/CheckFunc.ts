@@ -89,6 +89,7 @@ function checkMailApplicationNo(pageSource: string): string | null {
 // Web用の申込番号の確認
 function checkWebApplicationNo(pageSource: string) {
     const pattern = new RegExp(`SET @application_no = '`);
+
     return !pattern.test(pageSource) ? null : '・冒頭変数を削除してください';
 }
 
@@ -356,6 +357,27 @@ function checkButtonTextBiyori(pageSource: string) {
     return errors.length > 0 ? errors.join('<br>') : null;
 }
 
+function checkButtonHrefBiyori(pageSource: string) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(pageSource, 'text/html');
+    const buttons = doc.querySelectorAll('.p-mail__button');
+    const errors: string[] = [];
+
+    buttons.forEach((button, index) => {
+        const href = button.getAttribute('href');
+
+        if (href) {
+            if (href.includes('quiz') && !href.endsWith('#quiz')) {
+                errors.push(`・ボタン${index + 1}のhrefが誤っています。期待されるhrefの末尾: "#quiz"`);
+            } else if (href.includes('diagnosis') && !href.endsWith('#diagnosis')) {
+                errors.push(`・ボタン${index + 1}のhrefが誤っています。期待されるhrefの末尾: "#diagnosis"`);
+            }
+        }
+    });
+
+    return errors.length > 0 ? errors.join('<br>') : null;
+}
+
 export {
     checkPageTitle,
     checkMailPreheader,
@@ -376,4 +398,5 @@ export {
     checkDependentText,
     checkAmpText,
     checkButtonTextBiyori,
+    checkButtonHrefBiyori,
 };
