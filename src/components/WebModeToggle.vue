@@ -5,7 +5,7 @@ import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
 <template>
   <Tabs
     default-value="通常"
-    class="w-[400px] m-auto mt-5 mb-5"
+    class="w-9/12 m-auto mt-5 mb-5"
   >
     <TabsList class="grid w-full grid-cols-3">
       <TabsTrigger value="通常">通常</TabsTrigger>

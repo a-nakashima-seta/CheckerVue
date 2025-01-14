@@ -97,7 +97,7 @@ const handleEdit = (field: "title" | "preheader" | "prod_cd") => {
 
 .setButton {
   display: block;
-  margin: 0.4em auto;
+  margin: 1em auto;
   background-color: #c0eba6;
   transition: all 0.3s ease;
 }

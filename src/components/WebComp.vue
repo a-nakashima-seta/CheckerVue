@@ -233,21 +233,7 @@ const checkWebSource = async () => {
   <div style="width: 100%; max-width: 800px; margin: 0 auto">
     <h2 class="text-xl font-bold text-cyan-900">Web用チェックリスト</h2>
     <div class="webInputArea">
-      <!-- <div class="webCheckType">
-                <input type="radio" id="normal" name="checkType" value="normal" v-model="checkTypeWeb">
-                <label for="normal">通常</label>
-                <input type="radio" id="seac" name="checkType" value="seac" v-model="checkTypeWeb">
-                <label for="seac">SEAC</label>
-            </div> -->
-
       <WebModeToggle v-model="checkTypeWeb" />
-
-      <!-- <input
-        class="getWebSourceArea"
-        type="text"
-        placeholder="チェック対象のurlを入力してください。"
-        v-model="url"
-      /> -->
 
       <Input
         type="text"
