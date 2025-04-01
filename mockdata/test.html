@@ -1,0 +1,504 @@
+%%[
+var @currentSystemTime, @currentLocalTime, @tbl_mail_promotion, @application_no, @cp_start_date, @cp_end_date,
+SET @currentSystemTime = Now()
+SET @currentLocalTime = SystemDateToLocalDate(@currentSystemTime)
+SET @tbl_mail_promotion = 'mail_promotion_de'
+SET @application_no = '30875'
+SET @cp_start_date = ''
+SET @cp_end_date = ''
+SET @Month = FORMAT(@currentLocalTime, '%M')
+
+/*InsertDE( @tbl_mail_promotion, 'CUSTOMER_NO', _subscriberkey, 'APPLICATION_NO', @application_no, 'CAMPAIGN_START_DATE', @cp_start_date, 'CAMPAIGN_END_DATE', @cp_end_date, 'SENT_DATE', @currentSystemTime ) */
+
+var @unsublink, @contactlink
+SET @unsublink = '<a href="https://www.shizensyokuhin.jp/howto/012.php">こちら</a>'
+SET @contactlink = '<a href="https://www.shizensyokuhin.jp/contact/">こちら</a>'
+]%%
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+
+<head>
+  <meta name="robots" content="noindex" />
+  <link rel="shortcut icon" href="/excludes/dmlite/favicon.ico">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+
+  <title>＜今週のイチオシ#46＞今週は「種子島産　安納芋」をご紹介！</title>
+
+  <style type="text/css">
+    :root {
+      color-scheme: light dark;
+      supported-color-schemes: light dark;
+    }
+
+    body {
+      font-family: sans-serif;
+      font-size: 17px;
+      padding: 0;
+      margin: 0;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      background-color: #ffffff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #ffffff;
+        color: #000000;
+      }
+    }
+
+    table,
+    td {
+      border-collapse: collapse;
+      mso-table-lspace: 0;
+      mso-table-rspace: 0;
+    }
+
+    table,
+    tr,
+    td,
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    .heading--01 {
+      background-color: #fff7ca;
+      color: #0aa23e;
+      font-size: 18px;
+      line-height: 1.6;
+      padding: 10px 20px;
+      font-weight: bold;
+      padding-bottom: 30px;
+    }
+
+    img {
+      border: 0 none;
+      height: auto;
+      line-height: 1;
+      outline: none;
+      text-decoration: none;
+    }
+
+    /* .c-dish__name-space {
+      width: 40%;
+    } */
+
+    @media only screen and (max-width: 768px) {
+      .wrapper {
+        width: 100% !important;
+        margin: 0 auto;
+      }
+
+      body {
+        font-size: 16px !important;
+      }
+
+      .p-mail__title {
+        font-size: 20px !important;
+      }
+
+      .p-mail__title--small {
+        font-size: 16px !important;
+      }
+
+      .p-mail__subtitle {
+        font-size: 14px !important;
+      }
+
+      .p-mail__contents {
+        font-size: 16px !important;
+      }
+
+      .p-mail__button-catchcopy {
+        font-size: 16px !important;
+      }
+
+      .p-mail__button-catchcopy--small {
+        font-size: 14px !important;
+      }
+
+      .p-mail__button {
+        width: 80% !important;
+        padding: 20px 0 !important;
+      }
+
+      .p-mail__button--text {
+        font-size: 18px !important;
+      }
+
+      /* .c-dish__name-space {
+      width: 52%;
+    } */
+    }
+
+    /* @media screen and (max-width: 600px) {
+      .c-dish__name-space {
+        width:40%;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      .c-dish__name-space {
+        width: 20%;
+      }
+    } */
+  </style>
+
+</head>
+
+<body>
+  <custom name="opencounter" type="tracking" />
+  <table width="640" cellpadding="0" cellspacing="0" align="center" class="wrapper" style="margin:0 auto;">
+
+    <!-- header start -->
+    <tr>
+      <td>
+        <table width="100%" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto;">
+          <tr>
+            <td style="width:0;min-height:0;mso-hide:all;font-size:0;">
+              <!-- ▼ プリヘッダー ▼ -->
+              <span id="preheader" style="color:#f3f3f3;font-size:0;line-height:0;">
+                【11月12日(火)毎週更新】毎週イチオシの食品を世田谷自然食品のスタッフがお送りします。
+              </span>
+              <!-- ▲ プリヘッダー ▲ -->
+              <p style="font-size: 13px !important; text-align: center;">
+                <a href="">※画像がうまく表示されない方はこちらをご覧ください。</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <!-- header end -->
+
+    <!-- main start -->
+    <tr>
+      <td>
+        <table class="p-mail" width="100%" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto; max-width: 640px;">
+          <tr>
+            <td>
+              <img width="640" style="width: 100%; margin:0 auto; display: block;" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/ichioshi/2024/ichioshi1112/img/ichioshi1112_01.jpg">
+            </td>
+          </tr>
+        </table>
+        <table class="p-mail" width="100%" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto;">
+          <tr>
+            <td style="padding: 10px 0 0;">
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; border-top: solid 8px #532201; border-bottom: solid 8px #532201;">
+              <p style="color: #967f70;font-size: 23px;font-weight: bold;line-height: 1.41; text-align:center; margin: 0;" class="p-mail__subtitle">
+                世田谷自然食品のスタッフがおすすめ
+              </p>
+              <p style="color: #532201;font-size: 39px;font-weight: bold;line-height: 1.41; text-align:center; margin: 0;" class="p-mail__title">
+                今週のイチオシ！<span class="p-mail__title--small" style="font-size: 24px;">#46</span>
+              </p>
+            </td>
+          </tr>
+        </table>
+        <table class="p-mail" width="100%" cellpadding="0" cellspacing="0" align="center">
+          <tr>
+            <td style="padding: 2em 0;">
+              <!-- ▼ title ▼ -->
+              <p style="color: #532201;font-size: 27px;font-weight: bold;line-height: 1.41; text-align:center;" class="p-mail__title">
+                種子島の気候と風土が生み出した<br>
+                絶品のさつまいも!<br><br>
+              </p>
+              <!-- ▲ title ▲ -->
+              <!-- ▼ contents ▼ -->
+              <p style="color: #333;font-size: 19px;line-height: 1.69;text-align:center;margin: 0;" class="p-mail__contents">
+                徐々に肌寒さを感じるようになるこの時期、<br>
+                焼き芋が食べたくなりますね!<br>
+                私が子供の頃は近所に石焼き芋の移動販売が来ていて、<br>
+                この時期になるとよく焼き芋を買っていました。<br><br>
+                幼少期からお芋が大好きな宮崎が<br>
+                この季節にぴったりの新商品をご案内します!<br><br>
+                世田谷自然食品では期間限定で、<br>
+                <span style="font-weight: bold;">鹿児島県種子島が誇る名産品の安納芋</span>を<br>
+                販売しております。<br>
+                温暖な種子島で美味しく育ったさつまいもは<br>
+                いかがでしょうか!?
+              </p>
+              <!-- ▲ contents ▲ -->
+            </td>
+          </tr>
+        </table>
+        <table class="p-mail" width="100%" cellpadding="0" cellspacing="0" align="center">
+          <tr>
+            <td style="padding-top: 1em;">
+              <img width="640" style="width: 100%; margin:0 auto; display: block;" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/ichioshi/2024/ichioshi1112/img/ichioshi1112_02.jpg">
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 2em;"></td>
+          </tr>
+          <tr>
+            <td>
+              <!-- ▼ contents ▼ -->
+              <p style="color: #333;font-size: 19px;line-height: 1.69;text-align:center;margin: 0;" class="p-mail__contents">
+                亜熱帯の温暖な気候と海に囲まれた種子島の<br>
+                ミネラル豊富な土壌が安納芋の生育に適しています。
+              </p>
+              <!-- ▲ contents ▲ -->
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 4em;"></td>
+          </tr>
+        </table>
+
+        <!-- ▼ cta ▼ -->
+        <p style="color:#f62f08;font-size: 21px;font-weight: bold;line-height: 1.35;text-align:center;" class="p-mail__button-catchcopy">
+          ＼今週の私のイチオシ！／<br>
+          「種子島産 安納芋」
+        </p>
+        <table class="p-mail" cellpadding="0" cellspacing="0" align="center" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;width: 100%; max-width: 640px; text-align: center; margin: 5px auto 0;">
+          <tr>
+            <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; text-align:center;">
+              <div align="center">
+                <!--[if mso]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:74px;width:512px;v-text-anchor:middle;" arcsize="7%" strokeweight="1pt" strokecolor="#999999" fillcolor="#0c8700"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-size:16px"><![endif]-->
+                <a href="＆https://www.shizensyokuhin.jp/cate5/?tab=13&pop=5944&utm_source=archives&utm_medium=mail&utm_campaign=ichioshi46&argument=zXKEm5gk&dmai=a672c8b0c6f7e2" style="text-decoration:none;display:block;color: #ffffff;width: 67%;background-color: #0c8700;border: solid 1px #999999;padding: 40px 0;font-weight: bold;font-size: 22px;font-weight: bold;text-align:center;mso-border-alt:none;" class="p-mail__button">
+                  <span style="line-height: 22px;" class="p-mail__button--text">
+                    イチオシ商品を見る <span style="color:#eff630;">＞</span>
+                  </span>
+                </a>
+                <!--[if mso]></center></v:textbox></v:rect><![endif]-->
+              </div>
+            </td>
+          </tr>
+        </table>
+        <!-- ▲ cta ▲ -->
+
+        <table class="p-mail" width="100%" cellpadding="0" cellspacing="0" align="center">
+          <tr>
+            <td style="padding-top: 3em;">
+              <!-- ▼ title ▼ -->
+              <p style="color: #532201;font-size: 27px;font-weight: bold;line-height: 1.41; text-align:center;" class="p-mail__title">
+                ねっとりとした食感と<br>
+                上品な甘みがたまらない!<br><br>
+              </p>
+              <!-- ▲ title ▲ -->
+              <!-- ▼ contents ▼ -->
+              <p style="color: #333;font-size: 19px;line-height: 1.69;text-align:center;margin: 0;" class="p-mail__contents">
+                今では全国に知られるようになった<br>
+                種子島が誇る蜜芋〈安納芋〉。<br>
+                安納芋の中でも紅色の皮が特徴の<span style="font-weight: bold;">「安納紅」</span><br>
+                という品種を厳選しました。<br><br>
+                安納紅は加熱すると濃い黄色になり、<br>
+                <span style="font-weight: bold;">ほどよい甘さとねっとりとろけるような食感が特徴です。</span><br><br>
+                また水分量が多くて糖度も高く、<br>
+                焼き芋にすると蜜があふれて<br>
+                さらに甘味が増すため、<br>
+                <span style="font-weight: bold;">「天然のスイーツ」</span>とも呼ばれています。<br>
+                傷つきやすいため、1つ1つ丁寧に収穫しています。<br>
+              </p>
+              <!-- ▲ contents ▲ -->
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 2em;"></td>
+          </tr>
+          <tr>
+            <td>
+              <img width="640" style="width: 100%; margin:0 auto; display: block;" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/ichioshi/2024/ichioshi1112/img/ichioshi1112_03.jpg">
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 1em;"></td>
+          </tr>
+          <tr>
+            <td>
+              <!-- ▼ contents ▼ -->
+              <p style="color: #333;font-size: 19px;line-height: 1.69;text-align:center;margin: 0;" class="p-mail__contents">
+                丸型で紅色の皮が特徴の<span style="font-weight: bold;">「安納紅」</span><br>
+                という品種を厳選しました。
+              </p>
+              <!-- ▲ contents ▲ -->
+          <tr>
+          <tr>
+            <td style="padding-bottom: 3em;"></td>
+          </tr>
+          <td>
+            <img width="640" style="width: 100%; margin:0 auto; display: block;" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/ichioshi/2024/ichioshi1112/img/ichioshi1112_04.jpg">
+          </td>
+    </tr>
+    <tr>
+      <td style="padding-bottom: 1em;"></td>
+    </tr>
+    <tr>
+      <td>
+        <!-- ▼ contents ▼ -->
+        <p style="color: #333;font-size: 19px;line-height: 1.69;text-align:center;margin: 0;" class="p-mail__contents">
+          安納芋は傷つきやすい為、<br>
+          <span style="font-weight: bold;">生産者の手で1つ1つ丁寧に収穫</span>されています。<br>
+        </p>
+        <!-- ▲ contents ▲ -->
+      </td>
+    </tr>
+
+
+    <tr>
+      <td style="padding-bottom: 4em;"></td>
+    </tr>
+    </td>
+    </tr>
+  </table>
+
+  <!-- ▼ cta ▼ -->
+  <p style="color:#f62f08;font-size: 21px;font-weight: bold;line-height: 1.35;text-align:center;" class="p-mail__button-catchcopy">
+    ＼今週の私のイチオシ！／<br>
+    「種子島産 安納芋」
+  </p>
+  <table class="p-mail" cellpadding="0" cellspacing="0" align="center" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;width: 100%; max-width: 640px; text-align: center; margin: 5px auto 0;">
+    <tr>
+      <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; text-align:center;">
+        <div align="center">
+          <!--[if mso]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:74px;width:512px;v-text-anchor:middle;" arcsize="7%" strokeweight="1pt" strokecolor="#999999" fillcolor="#0c8700"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-size:16px"><![endif]-->
+          <a href="＆https://www.shizensyokuhin.jp/cate5/?tab=13&pop=5944&utm_source=archives&utm_medium=mail&utm_campaign=ichioshi46&argument=zXKEm5gk&dmai=a672c8b0cd6b18" style="text-decoration:none;display:block;color: #ffffff;width: 67%;background-color: #0c8700;border: solid 1px #999999;padding: 40px 0;font-weight: bold;font-size: 22px;font-weight: bold;text-align:center;mso-border-alt:none;" class="p-mail__button">
+            <span style="line-height: 22px;" class="p-mail__button--text">
+              イチオシ商品を見る <span style="color:#eff630;">＞</span>
+            </span>
+          </a>
+          <!--[if mso]></center></v:textbox></v:rect><![endif]-->
+        </div>
+      </td>
+    </tr>
+  </table>
+  <!-- ▲ cta ▲ -->
+
+  <table class="p-mail" width="100%" cellpadding="0" cellspacing="0" align="center">
+    <tr>
+      <td style="padding-top: 3em;">
+        <!-- ▼ contents ▼ -->
+        <p style="color: #333;font-size: 19px;line-height: 1.69;text-align:center;margin: 0;" class="p-mail__contents">
+          今回は<span style="font-weight: bold;">種子島産安納芋</span>を紹介しました!<br>
+          安納芋の美味しい食べ方は<br>
+          オーブンでじっくり時間をかけて加熱して<br>
+          焼き芋にする方法です。<br>
+          他にもふかし芋や天ぷらにしても絶品です。<br><br>
+          皆様はさつまいもはどのように<br>
+          調理して食べるのがお好きですか?<br>
+          様々な食べ方で楽しめる安納芋を<br>
+          是非ご賞味ください!<br><br>
+          商品担当 宮崎
+        </p>
+        <!-- ▲ contents ▲ -->
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-bottom: 6em;"></td>
+    </tr>
+  </table>
+
+  <!-- ▼ cta ▼ -->
+  <p style="color:#f62f08;font-size: 21px;font-weight: bold;line-height: 1.35;text-align:center;" class="p-mail__button-catchcopy">
+    ＼100種類以上の商品をご用意／<br>
+    他にも美味しい食品がいっぱい！
+  </p>
+  <table class="p-mail" cellpadding="0" cellspacing="0" align="center" style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;width: 100%; max-width: 640px; text-align: center; margin: 5px auto 0;">
+    <tr>
+      <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; text-align:center;">
+        <div align="center">
+          <!--[if mso]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:74px;width:512px;v-text-anchor:middle;" arcsize="7%" strokeweight="1pt" strokecolor="#999999" fillcolor="#0c8700"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-size:16px"><![endif]-->
+          <a href="https://www.shizensyokuhin.jp/cate5/?utm_source=archives&utm_medium=mail&utm_campaign=ichioshi46&argument=zXKEm5gk&dmai=a672c8b0d1590e" style="text-decoration:none;display:block;color: #ffffff;width: 67%;background-color: #0c8700;border: solid 1px #999999;padding: 40px 0;font-weight: bold;font-size: 22px;font-weight: bold;text-align:center;mso-border-alt:none;" class="p-mail__button">
+            <span style="line-height: 22px;" class="p-mail__button--text">
+              他の商品を見る <span style="color:#eff630;">＞</span>
+            </span>
+          </a>
+          <!--[if mso]></center></v:textbox></v:rect><![endif]-->
+        </div>
+      </td>
+    </tr>
+  </table>
+  <!-- ▲ cta ▲ -->
+
+  </td>
+  </tr>
+  <!-- main end -->
+
+  <!-- ▼ 世田谷EC ▼ -->
+  <tr>
+    <td>
+      <table width="100%" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto; max-width: 640px;">
+        <tr>
+          <td style="padding: 70px 10px 0;">
+            <p style="font-size: 13px; text-align:center; border-top:solid 1px #cccccc; padding-top: 34px;">
+              『世田谷自然食品　オンラインショップ』
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table width="100%" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto; max-width: 400px;">
+        <!-- 世田谷自然食品公式オンラインショップ -->
+        <tr>
+          <td style="border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0; padding:10px 10px 0;">
+            <a href="https://www.shizensyokuhin.jp/?utm_source=archives&utm_medium=mail&utm_campaign=ichioshi46&argument=zXKEm5gk&dmai=a672c8b0d20feb" style="text-decoration: underline;">
+              <img width="640" class="responsive-img" src="https://www.shizensyokuhin.jp/excludes/dmlite/htdm/ichioshi/2024/ichioshi1112/img/ec_top_2401.jpg" alt="世田谷自然食品公式オンラインショップはこちら" style="width:100%;border: 0 none;line-height: 1;outline: none;text-decoration: none;">
+            </a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <!-- ▲ 世田谷EC ▲ -->
+  <!-- ▼ SNS ▼ -->
+  <tr>
+    <td>
+      <table width="100%" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto; max-width: 640px;">
+        <tr>
+          <td style="padding: 50px 10px 0;">
+            <p style="font-size: 13px; text-align:center;">
+              世田谷自然食品公式SNSはこちら<br>
+              | <a href="https://www.shizensyokuhin.jp/campaign/line_2303/?utm_source=archives&utm_medium=mail&utm_campaign=ichioshi46&argument=zXKEm5gk&dmai=a672c8b0d2eab5">LINE</a> | <a href="https://ac.ebis.ne.jp/tr_set.php?argument=zXKEm5gk&ai=a672c8b0d4612f">X</a> | <a href="https://ac.ebis.ne.jp/tr_set.php?argument=zXKEm5gk&ai=a672c8b0d55b87">Instagram</a> | <a href="https://ac.ebis.ne.jp/tr_set.php?argument=zXKEm5gk&ai=a672c8b0d62026">Facebook</a> | <br>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <!-- ▲ SNS ▲ -->
+
+  <!-- ▼ 注釈 ▼ -->
+  <tr>
+    <td>
+      <table width="100%" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto; max-width: 640px;">
+        <tr>
+          <td style="padding: 20px 10px 0;">
+            <p style="font-size: 11px;">
+              ※このメールは配信専用です。このメールに返信いただいても内容を確認することができません。<br>
+              ※このメールは世田谷自然食品の商品をご注文いただいたお客様に配信させていただいてます。<br>
+              ご注文のキャンセル・返品をお申し出いただいた後にこのご案内が届いた場合はお許しください。<br>
+              <br>
+              ※メールでのお問い合わせは、平日の17時以降、土・日・祝祭日のお問い合わせや、ご質問の内容により、お返事までお時間をいただく場合がございます。あらかじめご了承ください。<br>
+              ※システムの都合上、配信解除お手続き完了後2〜3回メールが届く場合がございます。あらかじめご了承くださいますようお願いいたします。<br>
+              <br>
+              ・お問い合わせは%%=TreatAsContent(@contactlink)=%%からお願いします。<br>
+              ・配信の解除は%%=TreatAsContent(@unsublink)=%%からお願いします。<br><br>
+              株式会社世田谷自然食品 〒158-0097 東京都世田谷区用賀4-10-1<br>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <!-- ▲ 注釈 ▲ -->
+
+
+  </table>
+
+</body>
+
+</html>

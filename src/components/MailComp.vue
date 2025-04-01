@@ -16,9 +16,8 @@ import {
   checkAmpText,
   checkButtonTextBiyori,
   checkButtonHrefBiyori,
+  checkURLZenkaku
 } from "../utils/CheckFunc";
-
-// import { color } from 'html2canvas/dist/types/css/types/color';
 
 const MailCheckList = ref<CheckItem[]>([
   { id: "mail1", label: "タイトルは正しいか", checkFn: checkPageTitle },
@@ -46,6 +45,7 @@ const MailCheckList = ref<CheckItem[]>([
     checkFn: checkMailFooter,
   },
   { id: "mail9", label: "機種依存文字はないか", checkFn: checkDependentText },
+  { id: "mail10", label: "URLに全角が含まれていないか", checkFn: checkURLZenkaku },
 ]);
 
 let MailSource: string = "";
@@ -149,22 +149,6 @@ const getMailSource = async (event: Event) => {
   }
 };
 
-// キャプチャは手動で保存する運用のためいったんコメントアウト
-// const captureChecklist = async () => {
-//     if (checklistRef.value) {
-//         const canvas = await html2canvas(checklistRef.value);
-//         canvas.toBlob(async (blob) => {
-//             if (blob) {
-//                 const item = new ClipboardItem({ 'image/png': blob });
-//                 await navigator.clipboard.write([item]).then(() => {
-//                     alert('チェックOKです!');
-//                     alert('チェックリストをクリップボードにコピーしました!');
-//                 });
-//             }
-//         });
-//     }
-// };
-
 const checkMailSource = async () => {
   if (selectedChecksMail.value.every((checked) => !checked)) {
     alert("チェック項目を選択してください");
@@ -223,73 +207,39 @@ const checkMailSource = async () => {
     </div>
 
     <div class="fileUploader">
-      <input
-        class="border-2 border-emerald-500"
-        id="uploader"
-        type="file"
-        @change="getMailSource"
-      />
+      <input class="border-2 border-emerald-500" id="uploader" type="file" @change="getMailSource" />
     </div>
 
     <div class="wrapper">
       <div class="selectButtonWrapper">
-        <button
-          class="selectButton"
-          @click="selectAll"
-        >
+        <button class="selectButton" @click="selectAll">
           全選択
         </button>
-        <button
-          class="selectButton"
-          @click="clearSelections"
-        >
+        <button class="selectButton" @click="clearSelections">
           選択解除
         </button>
       </div>
 
-      <ul
-        class="checkList"
-        ref="checklistRef"
-      >
+      <ul class="checkList" ref="checklistRef">
         <h3 class="checkTypeName text-xl font-bold text-cyan-900">Mail</h3>
-        <li
-          v-for="(item, index) in MailCheckList"
-          :key="item.id"
-        >
-          <input
-            type="checkbox"
-            :id="item.id"
-            v-model="selectedChecksMail[index]"
-          />
+        <li v-for="(item, index) in MailCheckList" :key="item.id">
+          <input type="checkbox" :id="item.id" v-model="selectedChecksMail[index]" />
           <label :for="item.id">{{ item.label }}</label>
-          <span
-            :style="{
-              color: statusResults[index] === 'NG' ? '#f15f5f' : '#3FB27F',
-            }"
-            >{{ statusResults[index] }}</span
-          >
+          <span :style="{
+            color: statusResults[index] === 'NG' ? '#f15f5f' : '#3FB27F',
+          }">{{ statusResults[index] }}</span>
         </li>
       </ul>
-      <button
-        class="checkButton"
-        @click="checkMailSource"
-      >
+      <button class="checkButton" @click="checkMailSource">
         チェック実行
       </button>
 
-      <div
-        class="errListWrapper"
-        v-if="
-          errorMessages.length && errorMessages.some((msg) => msg.trim() !== '')
-        "
-      >
+      <div class="errListWrapper" v-if="
+        errorMessages.length && errorMessages.some((msg) => msg.trim() !== '')
+      ">
         <h2>エラーリスト</h2>
         <ul class="errList">
-          <li
-            class="errListItem"
-            v-for="(message, index) in errorMessages"
-            :key="index"
-          >
+          <li class="errListItem" v-for="(message, index) in errorMessages" :key="index">
             <p v-html="message"></p>
           </li>
         </ul>

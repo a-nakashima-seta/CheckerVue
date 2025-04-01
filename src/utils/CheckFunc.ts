@@ -319,6 +319,32 @@ const checkDependentText = (pageSource: string) => {
 };
 
 
+const checkURLZenkaku = (pageSource: string): string | null => {
+    // <a>タグのhref属性を抽出するための正規表現
+    const aTagRegex = /<a\s+href="([^"]+)"/g;
+
+    let match;
+    const hrefs: string[] = []; // href属性を格納する配列
+
+    // <a>タグを全て抽出
+    while ((match = aTagRegex.exec(pageSource)) !== null) {
+        const href = match[1];  // href属性のURL部分を取得
+        hrefs.push(href);  // 配列に追加
+    }
+
+    // hrefsの中から全角文字を含むものをフィルタリングした配列を生成
+    const filteredHrefs = hrefs.filter(href => /[^\x01-\x7E]/.test(href));
+
+    // エラーメッセージを作成
+    if (filteredHrefs.length > 0) {
+        const errorMessage = `全角文字を含んだURLが存在します。<br>${filteredHrefs.map(href => `・${href}`).join('<br>')}`;
+        return errorMessage;
+    }
+
+    return null;
+};
+
+
 // 日和用のチェック
 // &amp;のチェック
 const checkAmpText = (pageSource: string): string | null => {
@@ -399,4 +425,5 @@ export {
     checkAmpText,
     checkButtonTextBiyori,
     checkButtonHrefBiyori,
+    checkURLZenkaku,
 };
