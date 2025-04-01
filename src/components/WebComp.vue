@@ -44,7 +44,11 @@ const WebCheckList = ref<CheckItem[]>([
     checkFn: checkWebFooter,
   },
   { id: "web10", label: "GTM用の記述があるか", checkFn: checkGTM },
-  { id: "web11", label: "faviconは設定されているか", checkFn: checkFavicon },
+  { 
+    id: "web11", 
+    label: "faviconは設定されているか", 
+    checkFn: (source: string) => checkFavicon(source, checkTypeWeb.value === 'SEAC')
+  },
 ]);
 
 let WebSource: string = "";
@@ -154,22 +158,6 @@ const getWebSource = async () => {
   }
 };
 
-// キャプチャは手動で保存する運用のためいったんコメントアウト
-// const captureChecklist = async () => {
-//     if (checklistRef.value) {
-//         const canvas = await html2canvas(checklistRef.value);
-//         canvas.toBlob(async (blob) => {
-//             if (blob) {
-//                 const item = new ClipboardItem({ 'image/png': blob });
-//                 await navigator.clipboard.write([item]).then(() => {
-//                     alert('チェックOKです!');
-//                     alert('チェックリストをクリップボードにコピーしました!');
-//                 });
-//             }
-//         });
-//     }
-// };
-
 const checkWebSource = async () => {
   if (selectedChecksWeb.value.every((checked) => !checked)) {
     alert("チェック項目を選択してください");
@@ -202,17 +190,6 @@ const checkWebSource = async () => {
           statusResults.value[i] = result && result.length > 0 ? "NG" : "OK";
         }
       }
-      if (selectedChecksWeb.value[10]) {
-        const faviconCheck = checkFavicon(
-          WebSource,
-          checkTypeWeb.value === "SEAC"
-        );
-
-        if (faviconCheck) {
-          errorMessages.value.push(faviconCheck);
-        }
-        statusResults.value[10] = faviconCheck ? "NG" : "OK";
-      }
     };
 
     await runAllChecks();
@@ -220,12 +197,11 @@ const checkWebSource = async () => {
     const isSuccess = errorMessages.value.every((value) => value == "");
     if (isSuccess) {
       alert("チェックOKです！");
-      // キャプチャは手動で保存する運用のためいったんコメントアウト
-      // await captureChecklist();
     } else {
       alert("エラー項目を確認して下さい。");
     }
   }
+  
 };
 </script>
 
@@ -235,72 +211,39 @@ const checkWebSource = async () => {
     <div class="webInputArea">
       <WebModeToggle v-model="checkTypeWeb" />
 
-      <Input
-        type="text"
-        placeholder="チェック対象のurlを入力してください。"
-        v-model="url"
-      />
+      <Input type="text" placeholder="チェック対象のurlを入力してください。" v-model="url" />
     </div>
 
     <div class="wrapper">
       <div class="selectButtonWrapper">
-        <button
-          class="selectButton"
-          @click="selectAll"
-        >
+        <button class="selectButton" @click="selectAll">
           全選択
         </button>
-        <button
-          class="selectButton"
-          @click="clearSelections"
-        >
+        <button class="selectButton" @click="clearSelections">
           選択解除
         </button>
       </div>
 
-      <ul
-        class="checkList"
-        ref="checklistRef"
-      >
+      <ul class="checkList" ref="checklistRef">
         <h3 class="checkTypeName text-xl font-bold text-cyan-900">Web</h3>
-        <li
-          v-for="(item, index) in WebCheckList"
-          :key="item.id"
-        >
-          <input
-            type="checkbox"
-            :id="item.id"
-            v-model="selectedChecksWeb[index]"
-          />
+        <li v-for="(item, index) in WebCheckList" :key="item.id">
+          <input type="checkbox" :id="item.id" v-model="selectedChecksWeb[index]" />
           <label :for="item.id">{{ item.label }}</label>
-          <span
-            :style="{
-              color: statusResults[index] === 'NG' ? '#f15f5f' : '#3FB27F',
-            }"
-            >{{ statusResults[index] }}</span
-          >
+          <span :style="{
+            color: statusResults[index] === 'NG' ? '#f15f5f' : '#3FB27F',
+          }">{{ statusResults[index] }}</span>
         </li>
       </ul>
-      <button
-        class="checkButton"
-        @click="checkWebSource"
-      >
+      <button class="checkButton" @click="checkWebSource">
         チェック実行
       </button>
 
-      <div
-        class="errListWrapper"
-        v-if="
-          errorMessages.length && errorMessages.some((msg) => msg.trim() !== '')
-        "
-      >
+      <div class="errListWrapper" v-if="
+        errorMessages.length && errorMessages.some((msg) => msg.trim() !== '')
+      ">
         <h2>エラーリスト</h2>
         <ul class="errList">
-          <li
-            class="errListItem"
-            v-for="(message, index) in errorMessages"
-            :key="index"
-          >
+          <li class="errListItem" v-for="(message, index) in errorMessages" :key="index">
             <p>
               {{ message }}
             </p>
